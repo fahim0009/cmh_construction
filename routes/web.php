@@ -65,6 +65,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/residential', [PropertyController::class, 'residential'])->name('residential');
 Route::get('/commercial', [PropertyController::class, 'commercial'])->name('commercial');
 Route::get('/property-details/{id}', [PropertyController::class, 'propertyDetails'])->name('property-details');
