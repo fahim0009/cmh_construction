@@ -64,14 +64,13 @@
             <div class="p-4" style="background-color: #ddd;">
              <h4 class="text-center bg-theme text-white p-2">Contact Address</h4>
              <div class="my-3">
-                <b>Your Company Ltd</b> <br>
+                <b>{{\App\Models\CompanyDetail::first()->company_name}}</b> <br>
                 <span class="sinking-light">
-                 162 your exact location <br>
-                 London <br> 
+                    {{\App\Models\CompanyDetail::first()->address}} 
                 </span>
                  
                 <h5 class="mt-4 ">Opening Hours</h5>
-                <small class="sinking-light">  Monday – Friday: 9am – 5:00pm</small>
+                <small class="sinking-light">  {{\App\Models\CompanyDetail::first()->google_play_link}}</small>
                
              </div>
             </div>

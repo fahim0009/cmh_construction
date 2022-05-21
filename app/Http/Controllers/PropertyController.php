@@ -17,6 +17,16 @@ class PropertyController extends Controller
         return view('frontend.commercial');
     }
 
+    public function developing()
+    {
+        return view('frontend.developing');
+    }
+
+    public function newbuild()
+    {
+        return view('frontend.newbuild');
+    }
+
     public function propertyDetails($id)
     {
         $property = Property::where('id', '=', $id)->first();

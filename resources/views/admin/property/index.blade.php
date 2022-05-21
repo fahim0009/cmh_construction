@@ -43,11 +43,12 @@
                                                     <option value="Developing">Developing</option>
                                                 </select>
                                             </div>
-                                            
                                             <div>
-                                                <label for="image">Image</label>
-                                                <input class="form-control" id="image" name="image" type="file">
+                                                <label for="description"> Description</label>
+                                                <textarea name="description" id="description" cols="30" rows="5"  class="form-control"></textarea>
                                             </div>
+                                            
+                                            
 
                                         </div>
                     
@@ -59,9 +60,22 @@
                                             </div>
 
                                             <div>
-                                                <label for="description"> Description</label>
-                                                <textarea name="description" id="description" cols="30" rows="5"  class="form-control"></textarea>
+                                                <label for="fimage">Feature Image</label>
+                                                <input class="form-control" id="fimage" name="fimage" type="file">
                                             </div>
+
+                                            <div>
+                                                <label for="media">Image or Videos</label>
+                                                <input id="media" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png, video/mp4" name="media[]" type="file">
+                                            </div>
+
+                                            <div>
+                                                <div class="form-group">
+                                                    <div class="preview2"></div>
+                                                </div>
+                                            </div>
+
+                                            
                                         </div>
                                     </div>
                                     <div class="tile-footer">
@@ -128,6 +142,7 @@
                                                 </div>
                                             </td>
                                               <td>
+                                                <a  href="{{ route('propertyimage', $data->id)}}"><i class="fa fa-eye" style="color: #37c773;font-size:16px;"></i></a>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                                 <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
@@ -180,9 +195,13 @@
 
     <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script>
-    CKEDITOR.replace( 'details' );
+    CKEDITOR.replace( 'description' );
     </script>
     <script>
+
+        
+        var storedFiles2 = [];
+
         $(document).ready(function () {
 
             $("#addThisFormContainer").hide();
@@ -211,11 +230,16 @@
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
                     }  
-                    var file_data = $('#image').prop('files')[0];
+                    var file_data = $('#fimage').prop('files')[0];
                     var form_data = new FormData();
+
+                    for(var i=0, len=storedFiles2.length; i<len; i++) {
+                        form_data.append('media[]', storedFiles2[i]);
+                    }
+
                     form_data.append("title", $("#title").val());
                     form_data.append("category", $("#category").val());
-                    form_data.append('image', file_data);
+                    form_data.append('fimage', file_data);
                     form_data.append("description", $("#description").val());
                     form_data.append("location", $("#location").val());
 
@@ -250,14 +274,14 @@
                 for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
                 }  
-                  var file_data = $('#image').prop('files')[0];
+                  var file_data = $('#fimage').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
                   }
                   var form_data = new FormData();
                   form_data.append("title", $("#title").val());
                   form_data.append("category", $("#category").val());
-                  form_data.append('image', file_data);
+                  form_data.append('fimage', file_data);
                   form_data.append("description", $("#description").val());
                   form_data.append("location", $("#location").val());
 
@@ -351,6 +375,38 @@
                 $('#createThisForm')[0].reset();
                 $("#addBtn").val('Create');
             }
+        });
+
+        // gallery images 
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        $(document).on('change','#media',function(){
+            //$('.preview').html("");
+            len_files = $("#media").prop("files").length;
+            var construc = "<div class='row'>";
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#media").prop("files")[i];
+                storedFiles2.push(file_data2);
+                //console.log(file_data);
+                //form_data.append("media[]", file_data);
+                //TODO: work on delete image btn in file upload
+                construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                    'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+            }
+            construc += "</div>";
+            $('.preview2').append(construc);
+        });
+
+        $(".preview2").on('click','span.imageremove2',function(){
+            //console.log($(this).next("img"));
+            var trash = $(this).data("file");
+            for(var i=0;i<storedFiles2.length;i++) {
+                if(storedFiles2[i].name === trash) {
+                    storedFiles2.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+
         });
     </script>
     <script type="text/javascript">

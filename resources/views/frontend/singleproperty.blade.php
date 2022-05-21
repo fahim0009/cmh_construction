@@ -10,34 +10,64 @@
                     <div class="carousel-indicators">
 
                       @foreach (\App\Models\PropertyImage::where('property_id','=', $property->id)->get() as $key => $img)
+
+                      @php
+                          $allowed = array('gif', 'png', 'jpg', 'jpeg', 'gif', 'svg');
+                          $filename = $img->image;
+                          $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                      @endphp
+
+                      @if (!in_array($ext, $allowed))
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{$key}}" class="active" aria-current="true" aria-label="Slide 1">
+                          <video width="100" height="80" controls>
+                            <source src="{{asset('images/property/'.$img->image)}}" type="video/ogg">.
+                          </video>
+                        </button>
+                      @else
                         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{$key}}" class="active" aria-current="true" aria-label="Slide 1">
                           <img src="{{ asset('images/property/'.$img->image) }}" class="d-block w-100" alt="...">
                         </button>
+                          
+                      @endif
+
+                        
+
                       @endforeach
                       
-
-
-
-
-                      {{-- <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2">
-                        <img src="{{ asset('assets/images/2.jpg') }}" class="d-block w-100" alt="...">
-                      </button>
-                      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3">
-                        <img src="{{ asset('assets/images/3.jpg') }}" class="d-block w-100" alt="...">
-                      </button> --}}
-
 
                     </div>
 
                     <div class="carousel-inner">
 
                       @foreach (\App\Models\PropertyImage::where('property_id','=', $property->id)->get() as $key => $img)
+
+                      @php
+                          $allowed = array('gif', 'png', 'jpg', 'jpeg', 'gif', 'svg');
+                          $filename = $img->image;
+                          $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                      @endphp
+
+                      @if (!in_array($ext, $allowed))
+
+                      <div class="carousel-item {{ $key==0 ? 'active' : '' }}" data-bs-interval="10000">
+                        <video width="320" height="240" controls>
+                          <source src="{{asset('images/property/'.$img->image)}}" type="video/ogg">.
+                        </video>
+                        <div class="carousel-caption d-none d-md-block">
+                        </div>
+                      </div>
+
+                      @else
+
+
                       <div class="carousel-item {{ $key==0 ? 'active' : '' }}" data-bs-interval="10000">
                         <img src="{{ asset('images/property/'.$img->image) }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                          
                         </div>
                       </div>
+                          
+                      @endif
+
                       @endforeach
 
                       

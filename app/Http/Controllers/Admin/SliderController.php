@@ -77,9 +77,13 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit($id)
     {
-        //
+        $where = [
+            'id'=>$id
+        ];
+        $info = Slider::where($where)->get()->first();
+        return response()->json($info);
     }
 
     /**
@@ -89,9 +93,28 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Slider::find($id);
+        if ($request->image != 'null') {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('frontend/slider'), $imageName);
+            $post->photo= $imageName;
+        }
+        $post->title = $request->title;
+        $post->caption = $request->caption;
+        $post->updated_by = Auth::user()->id;
+        if ($post->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Slider Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+        else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
     }
 
     /**

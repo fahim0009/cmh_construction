@@ -29,6 +29,12 @@
     <!--DataTables Sample [ SAMPLE ]-->
     <script src="{{ asset('js/demo/tables-datatables.js')}}"></script> --}}
 
+    
+
+
+    {{-- for datattables  --}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap4.min.css">
 
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
@@ -132,24 +138,12 @@
 
         @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
         <li><a class="app-menu__item" href="{{url('admin/company-detail')}}" id="company-detail"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Company Details</span></a></li>
-
         @endif
 
         @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
-        
-
-        <li class="treeview" id="property"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Property</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="{{route('admin.property')}}" id="addproperty"><i class="icon fa fa-circle-o"></i> Add Property</a></li>
-
-            <li><a class="treeview-item" href="{{route('admin.propertyimage')}}" id="pimage"><i class="icon fa fa-circle-o"></i> Add Image</a></li>
-
-          </ul>
-        </li>
-
-
-
+        <li><a class="app-menu__item" href="{{route('admin.property')}}" id="addproperty"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Property</span></a></li>
         @endif
+
 
         @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
         <li class="{{ (request()->is('admin/admin-contact-mail*')) ? 'active' : '' }}"><a class="app-menu__item" href="{{ route('admin.contactmail') }}" id=""><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Contact Mail</span></a></li>
@@ -157,7 +151,7 @@
         
         <li class="treeview" id="alluser"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">User</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="{{url('admin/agent-register')}}" id="agent"><i class="icon fa fa-circle-o"></i> Agent</a></li>
+            
 
             @if(Auth::user()->is_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
             <li><a class="treeview-item" href="{{url('admin/user-register')}}" id="user"><i class="icon fa fa-circle-o"></i> User</a></li>
@@ -172,18 +166,23 @@
 
 
         {{-- <li><a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Charts</span></a></li> --}}
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Code Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview" style="display: none"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Code Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{url('admin/master')}}"><i class="icon fa fa-circle-o"></i> Master Code</a></li>
             <li><a class="treeview-item" href="{{url('admin/softcode')}}"><i class="icon fa fa-circle-o"></i> Soft Code</a></li>
           </ul>
         </li>
-        <li class="treeview" id="fsettings"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Frontend Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+
+        @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
+        <li><a class="app-menu__item" href="{{url('admin/sliders')}}" id="slider"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Slider Image</span></a></li>
+        @endif
+
+        {{-- <li class="treeview" id="fsettings"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Frontend Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{url('admin/sliders')}}" id="slider"><i class="icon fa fa-circle-o"></i> Slider Image</a></li>
             <li><a class="treeview-item" href="{{url('admin/seo-settings')}}" id="seo"><i class="icon fa fa-circle-o"></i> Seo Settings</a></li>
           </ul>
-        </li>
+        </li> --}}
         {{-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
@@ -257,7 +256,23 @@
 
      }
 
+
+     $(document).ready(function () {
+        $('#example').DataTable();
+    });
+
   </script>
+   {{-- for datatables  --}}
+
+   
+
+
+
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap4.min.js"></script>
+
  <script type="text/javascript" src="{{asset('js/plugins/bootstrap-notify.min.js')}}"></script>
  <script type="text/javascript" src="{{asset('js/plugins/sweetalert.min.js')}}"></script>
      @yield('script')

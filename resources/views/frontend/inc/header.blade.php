@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg   py-0  shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ route('homepage')}}">
-            <img src="{{ asset('assets/images/logo.png') }}" class="p-1 img-fluid mx-auto" width="180px">
+            <img src="{{url('images/company/'.\App\Models\CompanyDetail::first()->company_logo)}}" class="p-1 img-fluid mx-auto" width="180px">
         </a>
         <button class="navbar-toggler border" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"

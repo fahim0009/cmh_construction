@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
@@ -50,6 +51,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     //company details end
     //slider 
     Route::resource('sliders','App\Http\Controllers\Admin\SliderController');
+    Route::get('sliders/{id}/edit', [SliderController::class, 'edit']);
     Route::get('activeslider','App\Http\Controllers\Admin\SliderController@activeslider');
     //slider end
     Route::resource('seo-settings','App\Http\Controllers\Admin\SeoSettingController');
@@ -66,9 +68,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/property/{id}', [PropertyController::class, 'update']);
     Route::get('/property/{id}', [PropertyController::class, 'delete']);
 
-    Route::get('/property-image', [PropertyController::class, 'image'])->name('admin.propertyimage');
+    Route::get('/property-image/{id}', [PropertyController::class, 'image'])->name('propertyimage');
     Route::post('/property-image', [PropertyController::class, 'imageStore']);
-    Route::get('/property-image/{id}', [PropertyController::class, 'imageDelete']);
+    Route::get('/property-image-delete/{id}', [PropertyController::class, 'imageDelete']);
 
     // contact mail
     

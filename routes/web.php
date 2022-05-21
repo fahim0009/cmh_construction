@@ -66,8 +66,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/terms', [FrontendController::class, 'terms'])->name('terms');
+Route::get('/privacy', [FrontendController::class, 'privacy'])->name('privacy');
 Route::get('/residential', [PropertyController::class, 'residential'])->name('residential');
 Route::get('/commercial', [PropertyController::class, 'commercial'])->name('commercial');
+Route::get('/newbuild', [PropertyController::class, 'newbuild'])->name('newbuild');
+Route::get('/developing', [PropertyController::class, 'developing'])->name('developing');
 Route::get('/property-details/{id}', [PropertyController::class, 'propertyDetails'])->name('property-details');
 Route::get('/getquote', [FrontendController::class, 'getquote'])->name('getquote');
 Route::post('/contact-submit', [App\Http\Controllers\ContactController::class, 'visitorContact'])->name('contact.submit');

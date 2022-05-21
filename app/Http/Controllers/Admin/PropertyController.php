@@ -20,26 +20,66 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
             try{
-                $data = new Property();
-                $data->title= $request->title;
-                $data->category= $request->category;
-                $data->description= $request->description;
-                $data->location= $request->location;
-                if ($request->image) {
+                $property = new Property();
+                $property->title= $request->title;
+                $property->category= $request->category;
+                $property->description= $request->description;
+                $property->location= $request->location;
+                if ($request->fimage) {
                     $request->validate([
-                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'fimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     ]);
                     $rand = mt_rand(100000, 999999);
-                    $imageName = time(). $rand .'.'.$request->image->extension();
-                    $request->image->move(public_path('images/property'), $imageName);
-                    $data->image= $imageName;
+                    $imageName = time(). $rand .'.'.$request->fimage->extension();
+                    $request->fimage->move(public_path('images/property'), $imageName);
+                    $property->image= $imageName;
                 }
                 
-                $data->created_by= Auth::user()->id;
-                $data->save();
+                $property->created_by= Auth::user()->id;
+                $property->save();
+    
+            if ($property->id) {
+
+                if ($request->fimage) {
+                    $fpic = new PropertyImage();
+
+                    $request->validate([
+                        'fimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:204800',
+                    ]);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$request->fimage->extension();
+                    $request->fimage->move(public_path('images/property'), $imageName);
+
+                    $fpic->image= $imageName;
+                    $fpic->property_id = $property->id;
+                    $fpic->created_by= Auth::user()->id;
+                    $fpic->save();
+                }
+
+                 //image upload start
+                 if ($request->hasfile('media')) {
+                    // $media= [];
+                    foreach ($request->file('media') as $image) {
+                        $rand = mt_rand(100000, 999999);
+                        $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
+                        //move image to postimages folder
+                        $image->move(public_path() . '/images/property/', $name);
+                        $data[] = $name;
+                        //insert into picture table
+
+                        $pic = new PropertyImage();
+                        $pic->image = $name;
+                        $pic->property_id = $property->id;
+                        $pic->created_by= Auth::user()->id;
+                       $pic->save();
+                    }
+                }
+
+
 
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
                 return response()->json(['status'=> 300,'message'=>$message]);
+            }
 
             }catch (\Exception $e){
                 return response()->json(['status'=> 303,'message'=>'Server Error!!']);
@@ -59,26 +99,44 @@ class PropertyController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = Property::find($id);
-        $data->title= $request->title;
-        $data->category= $request->category;
-        $data->description= $request->description;
-        $data->location= $request->location;
-        if ($request->image != 'null') {
-            $image_path = public_path('images/property').'/'.$data->image;
+        $property = Property::find($id);
+        $property->title= $request->title;
+        $property->category= $request->category;
+        $property->description= $request->description;
+        $property->location= $request->location;
+        if ($request->fimage != 'null') {
+            $image_path = public_path('images/property').'/'.$property->fimage;
             // unlink($image_path);
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'fimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             $rand = mt_rand(100000, 999999);
-            $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images/property'), $imageName);
-            $data->image= $imageName;
+            $imageName = time(). $rand .'.'.$request->fimage->extension();
+            $request->fimage->move(public_path('images/property'), $imageName);
+            $property->image= $imageName;
         }
-        
-        
+        $property->save();
+    
+        if ($property->id) {
 
-        if ($data->save()) {
+                //image upload start
+                if ($request->hasfile('media')) {
+                    // $media= [];
+                    foreach ($request->file('media') as $image) {
+                        $rand = mt_rand(100000, 999999);
+                        $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
+                        //move image to postimages folder
+                        $image->move(public_path() . '/images/property/', $name);
+                        $data[] = $name;
+                        //insert into picture table
+
+                        $pic = new PropertyImage();
+                        $pic->image = $name;
+                        $pic->property_id = $property->id;
+                       $pic->save();
+                    }
+                }
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
@@ -96,28 +154,34 @@ class PropertyController extends Controller
         }
     }
 
-    public function image()
+    public function image($id)
     {
-        $image = PropertyImage::all();
-        return view('admin.property.image',compact('image'));
+        $property_id = $id;
+        $image = PropertyImage::where('property_id','=', $id)->get();
+        return view('admin.property.image',compact('image','property_id'));
     }
 
     public function imageStore(Request $request)
     {
             try{
-                $data = new PropertyImage();
-                $data->property_id= $request->property_id;
-                if ($request->image) {
-                    $request->validate([
-                        'image' => 'required|image|mimes:jpeg,png,mp4,jpg,gif,svg|max:204800',
-                    ]);
-                    $rand = mt_rand(100000, 999999);
-                    $imageName = time(). $rand .'.'.$request->image->extension();
-                    $request->image->move(public_path('images/property'), $imageName);
-                    $data->image= $imageName;
+                //image upload start
+                if ($request->hasfile('media')) {
+                    // $media= [];
+                    foreach ($request->file('media') as $image) {
+                        $rand = mt_rand(100000, 999999);
+                        $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
+                        //move image to postimages folder
+                        $image->move(public_path() . '/images/property/', $name);
+                        $data[] = $name;
+                        //insert into picture table
+
+                        $pic = new PropertyImage();
+                        $pic->image = $name;
+                        $pic->property_id = $request->property_id;
+                        $pic->created_by= Auth::user()->id;
+                       $pic->save();
+                    }
                 }
-                $data->created_by= Auth::user()->id;
-                $data->save();
 
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
                 return response()->json(['status'=> 300,'message'=>$message]);

@@ -35,21 +35,21 @@
                       <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter your address">@if (!empty($company->address)){{$company->address}}@endif</textarea>
                     </div>
                     <div class="form-group">
-                      <label for="phone1">Phone 1</label>
+                      <label for="phone1">Phone</label>
                       <input class="form-control" id="phone1" name="phone1" value="@if (!empty($company->phone1)){{$company->phone1}}@endif" type="number">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label for="phone2">Phone 2</label>
                       <input class="form-control" id="phone2" name="phone2" value="@if (!empty($company->phone2)){{$company->phone2}}@endif" type="number">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
-                      <label for="email1">Email 1</label>
+                      <label for="email1">Email</label>
                       <input class="form-control" id="email1" name="email1" value="@if (!empty($company->email1)){{$company->email1}}@endif" type="email">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label for="email2">Email 2</label>
                       <input class="form-control" id="email2" name="email2" value="@if (!empty($company->email2)){{$company->email2}}@endif" type="email">
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                       <label for="facebook">Facebook</label>
@@ -63,10 +63,10 @@
                       <label for="instagram">Instagram</label>
                       <input class="form-control" id="instagram" name="instagram" value="@if (!empty($company->instagram)){{$company->instagram}}@endif" type="text">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label for="linkedin">Linkedin</label>
                       <input class="form-control" id="linkedin" name="linkedin" value="@if (!empty($company->linkedin)){{$company->linkedin}}@endif" type="text">
-                    </div>
+                    </div> --}}
 
 
                   </form>
@@ -124,25 +124,25 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="footer_link">Footer Link</label>
+                          <label for="footer_link">Footer Text</label>
                           <input type="text" id="footer_link" value="@if (!empty($company->footer_link)){{$company->footer_link}}@endif" name="footer_link" class="form-control">
                       </div>
                       <div class="form-group">
-                        <label for="google_play_link">Google Play Link</label>
+                        <label for="google_play_link">Opening Hours</label>
                         <input type="text" id="google_play_link" value="@if (!empty($company->google_play_link)){{$company->google_play_link}}@endif" name="google_play_link" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="google_appstore_link">Google App Store Link</label>
+                        <label for="google_appstore_link">Google Map</label>
                         <input type="text" id="google_appstore_link" value="@if (!empty($company->google_appstore_link)){{$company->google_appstore_link}}@endif" name="google_appstore_link" class="form-control">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label for="website">Website</label>
                       <input type="text" id="website" value="@if (!empty($company->website)){{$company->website}}@endif" name="website" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="tawkto">Tawkto</label>
                         <input type="text" id="tawkto" value="@if (!empty($company->tawkto)){{$company->tawkto}}@endif" name="tawkto" class="form-control">
-                    </div>
+                    </div> --}}
 
 
                   </form>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Mail;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
 
@@ -94,22 +96,26 @@ class ContactController extends Controller
             exit();
         }
 
-      
 
-        $contactmail = "kazimuhammadullah@gmail.com";
-        // $contactmail = ContactMail::where('id', 1)->first()->name;
-
-	    $mail_to_send_to = $contactmail;
-	    
-        $from_email = "info@tevini.co.uk";
-        $subject= "New message from Falcon";
-
-        $message= "\r\n" . "Name: $fname $lname" . "\r\n"; //get recipient name in contact form
-        $message = $message.$visitor_message . "\r\n" ;//add message from the contact form to existing message(name of the client)
-        $headers = "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
-        $a = mail( $mail_to_send_to, $subject, $message, $headers );
+        // new code start
+        $contactmail = ContactMail::where('id', 1)->first()->name;
         
-                if ($a)
+        $mail['subject'] = "Falcon Constraction contact message";
+        $mail['fname'] = $fname;
+        $mail['lname'] = $lname;
+        $mail['email'] = $email;
+        $mail['phone'] = $visitor_phone;
+        $mail['message'] = $visitor_message;
+        $email_to = "kazimuhammadullah@gmail.com";
+        $a = Mail::send('emails.contact', compact('mail'), function($message)use($mail,$email_to) {
+            $message->from('kmushakil64@gmail.com', 'Falcon Construction');
+            $message->to($email_to)
+            ->subject($mail["subject"]);
+            });
+
+
+            
+            if ($a)
                 {
                     $message ="<div class='alert alert-success alert-dismissible fade show' role='alert'>
                     Thanks for your message! We will get back to you soon :)
@@ -126,7 +132,8 @@ class ContactController extends Controller
                     exit();
 
                 }
-
+        
+        // end
 
             }
 }

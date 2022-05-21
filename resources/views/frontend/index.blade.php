@@ -2,20 +2,14 @@
 @section('content')
 
 
-<section class="banner">
+<section class="banner" >
         <div class="container h-100">
             <div class="row p-0 h-100 m-0">
                 <div class="col-md-6 p-0 md-d-none"></div>
                 <div class="col-md-6 p-0 d-flex align-items-center justify-content-center">
                     <div class="w-100 p-4 slideText">
-                        <h1 class="text-white sinking-bold display-4">Lorem Ipsum</h1>
-                        <p class=" text-white sinking-light para">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Dolore quos, vel reiciendis voluptatibus
-                            suscipit voluptate iusto dolor molestias reprehenderit neque, quis voluptatum asperiores
-                            dolores
-                            tempora. Aut id, ex facere soluta corporis harum porro ab aspernatur ipsum voluptate impedit
-                            assumenda, atque,
-                            inventore!</p>
+                        <h1 class="text-white sinking-bold display-4">{{\App\Models\Slider::first()->title}}</h1>
+                        <p class=" text-white sinking-light para">{{\App\Models\Slider::first()->caption}}</p>
                     </div>
                 </div>
             </div>
@@ -29,10 +23,10 @@
         <div class="container">
             <div class="row text-center">
                 <div class="links">
-                    <a href="#">Commercial</a>|
-                    <a href="">Residential</a>|
-                    <a href="">New Build</a>|
-                    <a href="">Developing</a>
+                    <a href="{{ route('commercial')}}">Commercial</a>|
+                    <a href="{{ route('residential')}}">Residential</a>|
+                    <a href="{{ route('newbuild')}}">New Build</a>|
+                    <a href="{{ route('developing')}}">Developing</a>
                 </div>
             </div>
         </div>

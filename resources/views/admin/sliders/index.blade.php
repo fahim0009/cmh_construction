@@ -30,13 +30,23 @@
                                 <div class="container">
 
                                     {!! Form::open(['url' => 'admin/slider/create','id'=>'createThisForm']) !!}
-                                    {!! Form::hidden('sliderid','', ['id' => 'sliderid']) !!}
+                                    {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                     @csrf
                                     
 
                                     <div>
                                         <label for="image">Image</label>
                                         <input class="form-control" id="image" name="image" type="file">
+                                    </div>
+
+                                    <div>
+                                        <label for="title">Title</label>
+                                        <input class="form-control" id="title" name="title" type="text">
+                                    </div>
+
+                                    <div>
+                                        <label for="caption">Caption</label>
+                                        <input class="form-control" id="caption" name="caption" type="text">
                                     </div>
 
                                     {{-- <div>
@@ -65,7 +75,7 @@
 
         </div>
 
-        <button id="newBtn" type="button" class="btn btn-info">Add New</button>
+        {{-- <button id="newBtn" type="button" class="btn btn-info">Add New</button> --}}
         <hr>
 
         <div id="contentContainer">
@@ -88,6 +98,8 @@
                                         <tr>
                                           <th>ID</th>
                                           <th>Photo</th>
+                                          <th>Title</th>
+                                          <th>Caption</th>
                                           <th>Status</th>
                                           <th>Action</th>
                                         </tr>
@@ -97,6 +109,8 @@
                                             <tr>
                                               <td>{{$data->id}}</td>
                                               <td><img src="{{asset('frontend/slider/'.$data->photo)}}" height="50px" width="50px" alt=""></td>
+                                              <td>{{$data->title}}</td>
+                                              <td>{{$data->caption}}</td>
                                               <td>
                                                 <div class="toggle-flip">
                                                     <label>
@@ -105,7 +119,8 @@
                                                 </div>
                                             </td>
                                               <td>
-                                                <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+                                                <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
+                                                {{-- <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a> --}}
                                               </td>
                                             </tr>
                                             @endforeach
@@ -207,22 +222,21 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                // alert('update btn work');
-                for ( instance in CKEDITOR.instances ) {
-                CKEDITOR.instances[instance].updateElement();
-                }  
+                
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
                   }
                   var form_data = new FormData();
                   form_data.append('image', file_data);
+                    form_data.append("title", $("#title").val());
+                    form_data.append("caption", $("#caption").val());
                   form_data.append('_method', 'put');
 
                     //console.log(image);
                     // alert(name);
                     $.ajax({
-                        url:url+'/'+$("#sliderid").val(),
+                        url:url+'/'+$("#codeid").val(),
                         type: "POST",
                         dataType: 'json',
                         contentType: false,
@@ -247,11 +261,11 @@
             });
             //Edit
             $("#contentContainer").on('click','#EditBtn', function(){
-                //alert("btn work");
+                // alert("btn work");
                 codeid = $(this).attr('rid');
-                //console.log($codeid);
+                console.log(codeid);
                 info_url = url + '/'+codeid+'/edit';
-                //console.log($info_url);
+                console.log(info_url);
                 $.get(info_url,{},function(d){
                     populateForm(d);
                     pagetop();
@@ -289,7 +303,8 @@
 
 
             function populateForm(data){
-                $("#sort_details").val(data.sort_details);
+                $("#title").val(data.title);
+                $("#caption").val(data.caption);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);

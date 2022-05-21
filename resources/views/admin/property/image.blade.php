@@ -32,24 +32,23 @@
 
                                             
                                             <div>
-                                                <label for="property_id">Property</label>
-                                                <select class="form-control" name="property_id" id="property_id">
-                                                    @foreach (\App\Models\Property::all() as $item)
-                                                        <option value="{{$item->id}}">{{ $item->title }}</option>
-                                                    @endforeach
-
-                                                </select>
+                                                <input type="hidden" name="property_id" id="property_id" value="{{$property_id}}">
+                                                
                                             </div>
                                             
                                             <div>
-                                                <label for="image">Image</label>
-                                                <input class="form-control" id="image" name="image" type="file" multiple>
+                                                <label for="media">Image or Videos</label>
+                                                <input id="media" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png, video/mp4" name="media[]" type="file">
                                             </div>
 
                                         </div>
                     
                                         <div class="col-lg-6" id="colorForm">
-                                            
+                                            <div>
+                                                <div class="form-group">
+                                                    <div class="preview2"></div>
+                                                </div>
+                                            </div>
                                             
                                         </div>
                                     </div>
@@ -69,7 +68,7 @@
             </div>
 
         </div>
-
+        <a href="{{ route('admin.property')}}" id="backBtn" class="btn btn-success">Back</a>
         <button id="newBtn" type="button" class="btn btn-info">Add New</button>
         <hr>
 
@@ -93,18 +92,40 @@
                                           <th>ID</th>
                                           <th>Property Title</th>
                                           <th>Image</th>
+                                          <th>Video</th>
                                           <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                               @foreach ($image as $key => $data)
+                                              @php
+                                                 $allowed = array('gif', 'png', 'jpg', 'jpeg', 'gif', 'svg');
+                                                $filename = $data->image;
+                                                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                                                
+                                              @endphp
                                             <tr>
                                               <td>{{$key + 1}}</td>
                                               <td>{{\App\Models\Property::where('id','=',$data->property_id)->first()->title }}</td>
+
+
+                                              @if (!in_array($ext, $allowed))
+                                                <td>
+                                                    <video width="320" height="240" controls>
+                                                        <source src="{{asset('images/property/'.$data->image)}}" type="video/ogg">.
+                                                    </video>
+                                                </td>
+                                              @else
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
+                                              @endif
+
+                                              
+                                              
+
+
+
                                               
                                               <td>
-                                                <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                                 <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
                                             </tr>
@@ -154,23 +175,27 @@
     })
   </script>
 
-    <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    
     <script>
-    CKEDITOR.replace( 'details' );
-    </script>
-    <script>
+
+        
+var storedFiles2 = [];
+
+
         $(document).ready(function () {
 
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
                 $("#newBtn").hide(100);
+                $("#backBtn").hide(100);
                 $("#addThisFormContainer").show(300);
 
             });
             $("#FormCloseBtn").click(function(){
                 $("#addThisFormContainer").hide(200);
                 $("#newBtn").show(100);
+                $("#backBtn").show(100);
                 clearform();
             });
 
@@ -180,17 +205,17 @@
             //
 
             var url = "{{URL::to('/admin/property-image')}}";
+            var dlturl = "{{URL::to('/admin/property-image-delete')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    }  
-                    var file_data = $('#image').prop('files')[0];
+                    
                     var form_data = new FormData();
+                    for(var i=0, len=storedFiles2.length; i<len; i++) {
+                        form_data.append('media[]', storedFiles2[i]);
+                    }
                     form_data.append("property_id", $("#property_id").val());
-                    form_data.append('image', file_data);
 
 
                     var name= $("#property_id").val();
@@ -279,7 +304,7 @@
             $("#contentContainer").on('click','#deleteBtn', function(){
                 if(!confirm('Sure?')) return;
                  masterid = $(this).attr('rid');
-                 info_url = url + '/'+masterid;
+                 info_url = dlturl + '/'+masterid;
                 console.log(info_url);
                 //alert(info_url);
                 $.ajax({
@@ -322,6 +347,38 @@
                 $('#createThisForm')[0].reset();
                 $("#addBtn").val('Create');
             }
+        });
+
+               // gallery images 
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        $(document).on('change','#media',function(){
+            //$('.preview').html("");
+            len_files = $("#media").prop("files").length;
+            var construc = "<div class='row'>";
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#media").prop("files")[i];
+                storedFiles2.push(file_data2);
+                //console.log(file_data);
+                //form_data.append("media[]", file_data);
+                //TODO: work on delete image btn in file upload
+                construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                    'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+            }
+            construc += "</div>";
+            $('.preview2').append(construc);
+        });
+
+        $(".preview2").on('click','span.imageremove2',function(){
+            //console.log($(this).next("img"));
+            var trash = $(this).data("file");
+            for(var i=0;i<storedFiles2.length;i++) {
+                if(storedFiles2[i].name === trash) {
+                    storedFiles2.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+
         });
     </script>
     <script type="text/javascript">

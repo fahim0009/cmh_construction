@@ -51,37 +51,35 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 footer-links">
                         <a class="navbar-brand" href="{{ route('homepage')}}">
-                            <img src="{{ asset('assets/images/logo.png') }}" class="p-1 img-fluid mx-auto" width="250px">
+                            <img src="{{url('images/company/'.\App\Models\CompanyDetail::first()->company_logo)}}" class="p-1 img-fluid mx-auto" width="250px">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('homepage')}}">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('about')}}">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('terms')}}">Terms & Conditions</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('privacy')}}">Privacy policy</a></li>
                         </ul>
                     </div> 
 
                     <div class="col-lg-3 col-md-6 footer-contact ">
                         <h4>Contact Us</h4>
-                        <p>Your location, goes here , <br>London <br> <strong>Phone:</strong>
-                            xxxx xxxxxx <br> <strong>Email:</strong> info@company.co.uk<br> </p>
+                        <p>Your location, goes here , <br>{{\App\Models\CompanyDetail::first()->address}} <br> <strong>Phone:</strong>
+                            {{\App\Models\CompanyDetail::first()->phone1}} <br> <strong>Email:</strong> {{\App\Models\CompanyDetail::first()->email1}}<br> </p>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-info">
                         <h3 class="text-uppercase">About FALCON</h3>
-                        <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita
-                            valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                        <p>{{\App\Models\CompanyDetail::first()->footer_link}}</p>
                         <div class="social-links mt-3">
-                            <a href="#" class="twitter">
+                            <a href="https://{{\App\Models\CompanyDetail::first()->twiter}}" class="twitter">
                                 <span class="iconify" data-icon="bxl:twitter"></span>
                             </a>
-                            <a href="#" class="facebook">
+                            <a href="https://{{\App\Models\CompanyDetail::first()->facebook}}" class="facebook">
                                 <span class="iconify" data-icon="bxl:facebook"></span>
                             </a>
-                            <a href="#" class="instagram">
+                            <a href="https://{{\App\Models\CompanyDetail::first()->instagram}}" class="instagram">
                                 <span class="iconify" data-icon="bxl:instagram-alt"></span>
                             </a>
 
