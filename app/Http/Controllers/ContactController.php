@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use Mail;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
+use App\Mail\HomeContact;
 
 class ContactController extends Controller
 {
@@ -54,14 +54,6 @@ class ContactController extends Controller
             exit();
         }
 
-        if(empty($lname)){
-            $message ="<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            Please fill last name field, thank you!
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
-        
         if(empty($email)){
             $message ="<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             Please fill email field, thank you!
@@ -71,18 +63,18 @@ class ContactController extends Controller
         }
 
         if(!preg_match($emailValidation,$email)){
-	    
+
             $message ="<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             Your mail ".$email." is not valid mail. Please wirite a valid mail, thank you!
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
-            
+
         }
-        
+
         if(empty($visitor_phone)){
             $message ="<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            Please fill subject field, thank you!
+            Please fill phone field, thank you!
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
@@ -99,41 +91,24 @@ class ContactController extends Controller
 
         // new code start
         $contactmail = ContactMail::where('id', 1)->first()->name;
-        
-        $mail['subject'] = "Falcon Constraction contact message";
-        $mail['fname'] = $fname;
-        $mail['lname'] = $lname;
-        $mail['email'] = $email;
-        $mail['phone'] = $visitor_phone;
-        $mail['message'] = $visitor_message;
-        $email_to = "kazimuhammadullah@gmail.com";
-        $a = Mail::send('emails.contact', compact('mail'), function($message)use($mail,$email_to) {
-            $message->from('kmushakil64@gmail.com', 'Falcon Construction');
-            $message->to($email_to)
-            ->subject($mail["subject"]);
-            });
+
+        $array['subject'] = "Falcon Constraction contact message";
+        $array['fname'] = $fname;
+        $array['lname'] = $lname;
+        $array['email'] = $email;
+        $array['phone'] = $visitor_phone;
+        $array['message'] = $visitor_message;
+        $email = $email;
 
 
-            
-            if ($a)
-                {
-                    $message ="<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                    Thanks for your message! We will get back to you soon :)
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-                    return response()->json(['status'=> 303,'message'=>$message]);
-                    exit();
+        Mail::to($email)
+        ->cc($contactmail)
+        ->send(new HomeContact($array));
 
-                } else {
 
-                    $message ="<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                    Problem with sending message !
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-                    return response()->json(['status'=> 303,'message'=>$message]);
-                    exit();
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Mail sent successfully.</b></div>";
+        return response()->json(['status'=> 300,'message'=>$message]);
 
-                }
-        
-        // end
 
             }
 }
