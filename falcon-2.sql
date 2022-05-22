@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2022 at 10:34 PM
+-- Generation Time: May 21, 2022 at 09:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -57,7 +57,7 @@ CREATE TABLE `company_details` (
 --
 
 INSERT INTO `company_details` (`id`, `company_name`, `company_logo`, `fav_icon`, `address`, `phone1`, `phone2`, `email1`, `email2`, `website`, `footer_link`, `google_play_link`, `google_appstore_link`, `tawkto`, `facebook`, `twiter`, `instagram`, `linkedin`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'Next Link edit2000', '1652678358934989.jpg', '1652678358262389.jpg', 'London2000', '1234567800', '1234567800', 'shakil200@gmail.com', 'shakil200@gmail.com2', 'test200', 'test200', 'google200', 'google app200', 'tawkto200', 'facebook.com200', 'twitter2.com00', 'instagram2.com00', 'linkedin2.com00', '1', NULL, '2021-05-03 08:36:58', '2022-05-15 23:19:18');
+(1, 'Next Link', '1653154154412912.png', '1653154154838481.png', 'London2000', '1234567800', 'undefined', 'shakil200@gmail.com', 'undefined', 'undefined', 'Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.', 'Monday – Friday: 9am – 5:00pm', NULL, 'undefined', 'facebook.com200', 'twitter2.com00', 'instagram2.com00', 'undefined', '1', NULL, '2021-05-03 08:36:58', '2022-05-21 12:20:45');
 
 -- --------------------------------------------------------
 
@@ -226,7 +226,6 @@ CREATE TABLE `property_images` (
 INSERT INTO `property_images` (`id`, `property_id`, `image`, `status`, `updated_by`, `created_by`, `created_at`, `updated_at`) VALUES
 (7, 4, '1652814070687427.jpg', '0', NULL, '1', '2022-05-17 13:01:10', '2022-05-17 13:01:10'),
 (8, 2, '1652818551861501.jpg', '0', NULL, '1', '2022-05-17 14:15:51', '2022-05-17 14:15:51'),
-(9, 2, '1652818565938707.jpg', '0', NULL, '1', '2022-05-17 14:16:05', '2022-05-17 14:16:05'),
 (10, 3, '1652818577936928.jpg', '0', NULL, '1', '2022-05-17 14:16:17', '2022-05-17 14:16:17'),
 (11, 3, '1652818587216713.jpg', '0', NULL, '1', '2022-05-17 14:16:27', '2022-05-17 14:16:27'),
 (12, 3, '1652818595215248.jpg', '0', NULL, '1', '2022-05-17 14:16:35', '2022-05-17 14:16:35'),
@@ -238,7 +237,11 @@ INSERT INTO `property_images` (`id`, `property_id`, `image`, `status`, `updated_
 (18, 5, '1652818648939864.jpg', '0', NULL, '1', '2022-05-17 14:17:28', '2022-05-17 14:17:28'),
 (19, 6, '1652818657942187.jpg', '0', NULL, '1', '2022-05-17 14:17:37', '2022-05-17 14:17:37'),
 (20, 6, '1652818666595579.jpg', '0', NULL, '1', '2022-05-17 14:17:46', '2022-05-17 14:17:46'),
-(21, 6, '1652818680763138.jpg', '0', NULL, '1', '2022-05-17 14:18:00', '2022-05-17 14:18:00');
+(21, 6, '1652818680763138.jpg', '0', NULL, '1', '2022-05-17 14:18:00', '2022-05-17 14:18:00'),
+(26, 2, '1653057769_1_937674.jpeg', '0', NULL, '1', '2022-05-20 08:42:49', '2022-05-20 08:42:49'),
+(27, 2, '1653057770_1_818584.jpg', '0', NULL, '1', '2022-05-20 08:42:50', '2022-05-20 08:42:50'),
+(28, 2, '1653057976_1_326964.mp4', '0', NULL, '1', '2022-05-20 08:46:16', '2022-05-20 08:46:16'),
+(29, 3, '1653070923_1_448051.mp4', '0', NULL, '1', '2022-05-20 12:22:03', '2022-05-20 12:22:03');
 
 -- --------------------------------------------------------
 
@@ -301,6 +304,8 @@ INSERT INTO `seo_settings` (`id`, `keyword`, `author`, `revisit`, `sitemap_link`
 CREATE TABLE `sliders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `caption` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `published` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -313,8 +318,8 @@ CREATE TABLE `sliders` (
 -- Dumping data for table `sliders`
 --
 
-INSERT INTO `sliders` (`id`, `photo`, `published`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(3, '1652678733320649.jpg', NULL, '1', '1', NULL, '2022-05-15 23:25:33', '2022-05-15 23:25:45');
+INSERT INTO `sliders` (`id`, `photo`, `title`, `caption`, `published`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(3, '1653159906315436.jpg', 'Lorem Ipsum', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore quos, vel reiciendis voluptatibus suscipit voluptate iusto dolor molestias reprehenderit neque, quis voluptatum asperiores dolores tempora. Aut id, ex facere soluta corporis harum porro ab aspernatur ipsum voluptate impedit assumenda, atque, inventore!', NULL, '1', '1', '1', '2022-05-15 23:25:33', '2022-05-21 13:06:09');
 
 -- --------------------------------------------------------
 
@@ -542,13 +547,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `property_images`
 --
 ALTER TABLE `property_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `roles`
