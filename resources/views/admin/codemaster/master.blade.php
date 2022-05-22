@@ -1,10 +1,15 @@
 @extends('admin.layouts.admin')
 
+
+
 @section('content')
+
+
+
     <main class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+                <h1><i class="fa fa-dashboard"></i> Pages</h1>
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -19,7 +24,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h3>New Master details</h3>
+                            <h3>New Pages</h3>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -30,8 +35,9 @@
                                     {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
                                     {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                     @csrf
+
                                     <div>
-                                        <label for="softcode" class="awesome">Softcode</label>
+                                        <label for="softcode" class="awesome">Pages</label>
                                         <select name="softcode" class="form-control" id="softcode" required>
                                             <option value=""  >Select Account Type</option>
                                             @foreach ($softcode as $item)
@@ -39,22 +45,15 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    
 
                                     <div>
-                                        <label for="hardcode">Hardcode</label>
-                                        <input type="text" id="hardcode" name="hardcode" class="form-control">
+                                        <label for="title">Title</label>
+                                        <input type="text" id="title" name="title" class="form-control">
                                     </div>
                                     <div>
-                                        <label for="image">Image</label>
-                                        <input class="form-control" id="image" name="image" type="file">
-                                    </div>
-                                    <div>
-                                        <label for="details">Details</label>
-                                        <textarea class="form-control ckeditor" id="details" name="details" rows="4" placeholder="Enter your details"></textarea>
-                                    </div>
-                                    <div>
-                                        <label for="sort_details">Short Details (Tag)</label>
-                                        <input class="form-control" type="text" name="sort_details" id="sort_details" placeholder="Enter sort_details">
+                                        <label for="details">Description</label>
+                                        <textarea class="form-control" id="details" name="details" rows="4" placeholder="Enter your Decription"></textarea>
                                     </div>
 
 
@@ -84,10 +83,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3> Master Details</h3>
+                            <h3> Service Details</h3>
                         </div>
                         <div class="card-body">
-                            <div class="row">
                                 <div class="container">
 
 
@@ -95,33 +93,27 @@
                                         <thead>
                                         <tr>
                                           <th>ID</th>
-                                          <th>Sortcode</th>
-                                          <th>Hardcode</th>
-                                          <th>Image</th>
-                                          <th>Details</th>
-                                          <th>Sort Detasils</th>
+                                          <th>Pages</th>
+                                          <th>Title</th>
+                                          <th>Decription</th>
                                           <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                              @foreach ($masters as $master)
+                                              @foreach ($masters as $data)
                                             <tr>
-                                              <td>{{$master->id}}</td>
-                                              <td>{{$master->softcode}}</td>
-                                              <td>{{$master->hardcode}}</td>
-                                              <td><img src="{{asset('images/master/'.$master->image)}}" height="50px" width="50px" alt=""></td>
-                                              <td>{!!$master->details!!}</td>
-                                              <td>{{$master->sort_details}}</td>
+                                              <td>{{$data->id}}</td>
+                                              <td>{{$data->softcode}}</td>
+                                              <td>{{$data->hardcode}}</td>
+                                              <td>{!!$data->details!!}</td>
                                               <td>
-                                                <a id="EditBtn" rid="{{$master->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                                                <a id="deleteBtn" rid="{{$master->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+                                                <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                               </td>
                                             </tr>
                                             @endforeach
                                           </tbody>
                                     </table>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,14 +127,18 @@
 @endsection
 @section('script')
     <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    <script>
-    CKEDITOR.replace( 'details' );
-    </script>
+    
     <script>
         $(document).ready(function () {
 
             $("#addThisFormContainer").hide();
+            $("#showProductContainer").hide();
             $("#newBtn").click(function(){
+                $("#details").addClass("ckeditor");
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                    } 
+                 CKEDITOR.replace( 'details' );
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
@@ -151,6 +147,7 @@
             $("#FormCloseBtn").click(function(){
                 $("#addThisFormContainer").hide(200);
                 $("#newBtn").show(100);
+                window.setTimeout(function(){location.reload()},100)
                 clearform();
             });
 
@@ -167,13 +164,10 @@
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
                     }  
-                    var file_data = $('#image').prop('files')[0];
                     var form_data = new FormData();
                     form_data.append("softcode", $("#softcode").val());
-                    form_data.append("hardcode", $("#hardcode").val());
-                    form_data.append('image', file_data);
+                    form_data.append("title", $("#title").val());
                     form_data.append("details", $("#details").val());
-                    form_data.append("sort_details", $("#sort_details").val());
 
                     $.ajax({
                       url: url,
@@ -185,7 +179,7 @@
                           if (d.status == 303) {
                               $(".ermsg").html(d.message);
                           }else if(d.status == 300){
-                            success("Master Data Insert Successfully!!");
+                            success("Data Insert Successfully!!");
                                 window.setTimeout(function(){location.reload()},2000)
                           }
                       },
@@ -201,19 +195,12 @@
                 for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
                 }  
-                  var file_data = $('#image').prop('files')[0];
-                  if(typeof file_data === 'undefined'){
-                    file_data = 'null';
-                  }
+                  
                   var form_data = new FormData();
-                  form_data.append("softcode", $("#softcode").val());
-                  form_data.append("hardcode", $("#hardcode").val());
-                  form_data.append('image', file_data);
+                  form_data.append("title", $("#title").val());
                   form_data.append("details", $("#details").val());
-                  form_data.append("sort_details", $("#sort_details").val());
                   form_data.append('_method', 'put');
 
-                    console.log(image);
                     // alert(name);
                     $.ajax({
                         url:url+'/'+$("#codeid").val(),
@@ -228,7 +215,7 @@
                                 $(".ermsg").html(d.message);
                                 pagetop();
                             }else if(d.status == 300){
-                                success("Master Data Update Successfully!!");
+                                success("Data Update Successfully!!");
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
@@ -262,7 +249,7 @@
                 //alert(info_url);
                 $.ajax({
                     url:info_url,
-                    method: "DELETE",
+                    method: "GET",
                     type: "DELETE",
                     data:{
                     },
@@ -286,14 +273,10 @@
                 for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
                     } 
-                $("#softcode").val(data.softcode);
-                $("#hardcode").val(data.hardcode);
+                $("#title").val(data.hardcode);
                 $("#details").val(data.details);
-//                 $(window).on('load', function (){
-//     $( '#details' ).ckeditor();
-// });
+
                  CKEDITOR.replace( 'details' );
-                $("#sort_details").val(data.sort_details);
                 $("#codeid").val(data.id);
                 // $("#image").val(data.image);
                 $("#addBtn").val('Update');
@@ -308,9 +291,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#codemaster").addClass('active');
-            $("#codemaster").addClass('is-expanded');
-            $("#master").addClass('active');
+            $("#pages").addClass('active');
         });
     </script>
    

@@ -39,17 +39,12 @@
             <div class="row pt-5 pb-3">
                 <div class="col-md-5">
                     <h1 class="sectitle pb-2 text-uppercase  sinking-bold fw-bold">
-                        <span> Our</span> 
-                        <span> Latest </span>
-                        <span> Projects </span>
+                        <span> {{\App\Models\Master::where('softcode','=','homepage')->first()->hardcode}}</span> 
                     </h1>
                 </div>
                 <div class="col-md-4 pb-3 lh" style="position: relative;">
                     <small class=" textAdjust sinking-light text-theme">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-                        quos, vel reiciendis voluptatibus  vel reiciendis voluptatibus
-                        suscipit voluptate iusto dolor molestias reprehenderit neque, quis voluptatum asperiores dolores
-                        tempora. Aut id, ex facere  
+                        {!!\App\Models\Master::where('softcode','=','homepage')->first()->details!!}
                     </small>
                 </div>
             </div>

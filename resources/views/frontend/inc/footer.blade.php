@@ -3,20 +3,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 py-5">
-                        <h1 class="text-theme sinking-bold mb-2">Contatc Us</h1>
-                        <h4 class="sinking">Let's plan your project together</h4>
-                        <p class="sinking">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, ab.
-                            Dolorum, veritatis
-                            eius quis animi maxime, laborum rerum unde sequi eos ipsam aspernatur et ullam placeat in
-                            inventore dolorem eveniet autem iste facilis dicta sit deserunt aut. Similique sequi qui,
-                            aspernatur consequatur ea tempora quae, eveniet doloribus quis enim exercitationem!</p>
+                        <h1 class="text-theme sinking-bold mb-2">Contact Us</h1>
+                        <h4 class="sinking">{{\App\Models\Master::where('softcode','=','contact')->first()->hardcode}} </h4>
+                        <p class="sinking">{!!\App\Models\Master::where('softcode','=','contact')->first()->details!!}</p>
                     </div>
                     <div class="col-lg-6">
+                        <div class="ermsg"></div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="label mb-1" for="name">Full Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                    <label class="label mb-1" for="fname">Full Name</label>
+                                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -36,7 +33,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="submit" value="Send Message" class="btn btn-danger mt-3">
+                                    <input type="submit"  id="submit2"  value="Send Message" class="btn btn-danger mt-3">
 
                                 </div>
                             </div>

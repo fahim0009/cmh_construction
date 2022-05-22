@@ -26,17 +26,33 @@
 }
 
 .steps {
-  background: url("../images/bg.png");
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-size: 56% 110%;
+  position: relative;
+  overflow: hidden;
+}
+
+.steps .bgPhoto {
+  position: absolute;
+  right: 1%;
+  bottom: -14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  width: 47%;
 }
 
 @media (max-width: 768px) {
-  .steps {
-    background-size: cover;
-    background-position: center center;
+  .steps .bgPhoto {
+    width: 65%;
+  }
+}
+
+@media (max-width: 600px) {
+  .steps .bgPhoto {
+    right: -10px;
+    bottom: -14px;
+    width: 100%;
   }
 }
 
@@ -756,20 +772,23 @@ body {
 .carousel-indicators {
   position: absolute;
   right: 0;
-  bottom: -15px;
+  bottom: 60px;
   left: 0;
   z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0;
-  margin-bottom: 1rem;
   margin-left: 0;
   width: 100%;
   list-style: none;
-  background: #1a1a1aad;
+  margin-bottom: 0;
+}
+
+.carousel-indicators img {
+  border: 2px solid #9f9f9f;
 }
 /*# sourceMappingURL=app.css.map */

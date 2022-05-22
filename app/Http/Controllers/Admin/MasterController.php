@@ -42,32 +42,17 @@ class MasterController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->softcode == 'logo'){
-            $query = Master::where('softcode', '=', 'logo')->get()->first();
-            if(!empty($query->id)){
-                $image_path = public_path('images/master').'/'.$query->image;
-                unlink($image_path);
-                Master::destroy($query->id);
-            }
-        }
+        
 
             try{
                 $master = new Master();
                 $master->softcode= $request->softcode;
-                $master->hardcode= $request->hardcode;
-                $request->validate([
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ]);
-                $rand = mt_rand(100000, 999999);
-                $imageName = time(). $rand .'.'.$request->image->extension();
-                $request->image->move(public_path('images/master'), $imageName);
-                $master->image= $imageName;
+                $master->hardcode= $request->title;
                 $master->details= $request->details;
-                $master->sort_details= $request->sort_details;
                 $master->created_by= Auth::user()->id;
                 $master->save();
 
-                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Master Details Created Successfully.</b></div>";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b> Data Created Successfully.</b></div>";
                 return response()->json(['status'=> 300,'message'=>$message]);
 
             }catch (\Exception $e){
@@ -113,29 +98,10 @@ class MasterController extends Controller
     public function update(Request $request, $id)
     {
         $master = Master::find($id);
-        if($request->image != 'null'){
-            $image_path = public_path('images/master').'/'.$master->image;
-            unlink($image_path);
-            $master->softcode= $request->softcode;
-            $master->hardcode= $request->hardcode;
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-            $rand = mt_rand(100000, 999999);
-            $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images/master'), $imageName);
-            $master->image= $imageName;
-            $master->details= $request->details;
-            $master->sort_details= $request->sort_details;
-        }else{
-            $master->softcode= $request->softcode;
-            $master->hardcode= $request->hardcode;
-            $master->details= $request->details;
-            $master->sort_details= $request->sort_details;
-        }
-
+        $master->hardcode= $request->title;
+        $master->details= $request->details;
         if ($master->save()) {
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Master Details Updated Successfully.</b></div>";
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b> Data Updated Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
