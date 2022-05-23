@@ -17,14 +17,14 @@
 </head>
 
 <body>
-    
+
 
         <!-- header part  -->
 
 
-   
+
     @include('frontend.inc.header')
-	
+
 
 	@yield('content')
 
@@ -33,35 +33,30 @@
 
 
 
-    
+
 
     <!-- footer part here  -->
-    
+
     <script src="{{ asset('assets/js/bootstrap-5.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/iconify.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>
 <script>
-     $(document).ready(function () {
-
-
+$(document).ready(function () {
  //header for csrf-token is must in laravel
  $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
             //  make mail start
-            var url = "{{URL::to('/contact-submit2')}}";
-            $("#submit2").click(function(){
+            var url = "{{URL::to('/contact-footer')}}";
+            $("#fcontact").click(function(){
 
-
-                    var fname= $("#fname").val();
-                    var lname= $("#lname").val();
-                    var email= $("#email").val();
-                    var phone= $("#phone").val();
-                    var message= $("#message").val();
+                    var name= $("#name").val();
+                    var email= $("#femail").val();
+                    var message= $("#fmessage").val();
                     $.ajax({
                         url: url,
                         method: "POST",
-                        data: {fname,lname,email,phone,message},
+                        data: {name,email,message},
                         success: function (d) {
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);
@@ -81,8 +76,7 @@
 
 });
 </script>
-
-    @yield('script')
+@yield('script')
 </body>
 
 </html>

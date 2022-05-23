@@ -75,6 +75,7 @@ Route::get('/developing', [PropertyController::class, 'developing'])->name('deve
 Route::get('/property-details/{id}', [PropertyController::class, 'propertyDetails'])->name('property-details');
 Route::get('/getquote', [FrontendController::class, 'getquote'])->name('getquote');
 Route::post('/contact-submit', [App\Http\Controllers\ContactController::class, 'visitorContact'])->name('contact.submit');
+Route::post('/contact-footer', [App\Http\Controllers\ContactController::class, 'footerContact'])->name('contact.footer');
+Route::post('/contact-getquote', [App\Http\Controllers\ContactController::class, 'getQuote'])->name('get.quote');
 
 
- 

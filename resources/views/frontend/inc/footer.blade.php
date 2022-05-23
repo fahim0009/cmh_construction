@@ -12,14 +12,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="label mb-1" for="fname">Full Name</label>
-                                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Name">
+                                    <label class="label mb-1" for="name">Full Name</label>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="label mb-1" for="email">Email Address</label>
-                                    <input type="email" class="form-control" name="email" id="email"
+                                    <label class="label mb-1" for="femail">Email Address</label>
+                                    <input type="email" class="form-control" name="femail" id="femail"
                                         placeholder="Email">
                                 </div>
                             </div>
@@ -27,13 +27,13 @@
                             <div class="col-md-12 my-2">
                                 <div class="form-group">
                                     <label class="label mb-1" for="#">Message</label>
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="4"
+                                    <textarea name="fmessage" class="form-control" id="fmessage" cols="30" rows="4"
                                         placeholder="Message"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="submit"  id="submit2"  value="Send Message" class="btn btn-danger mt-3">
+                                    <input type="submit"  id="fcontact"  value="Send Message" class="btn btn-danger mt-3">
 
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                             <li><i class="bx bx-chevron-right"></i> <a href="{{ route('terms')}}">Terms & Conditions</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="{{ route('privacy')}}">Privacy policy</a></li>
                         </ul>
-                    </div> 
+                    </div>
 
                     <div class="col-lg-3 col-md-6 footer-contact ">
                         <h4>Contact Us</h4>

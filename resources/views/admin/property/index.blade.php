@@ -47,13 +47,13 @@
                                                 <label for="description"> Description</label>
                                                 <textarea name="description" id="description" cols="30" rows="5"  class="form-control"></textarea>
                                             </div>
-                                            
-                                            
+
+
 
                                         </div>
-                    
+
                                         <div class="col-lg-6" id="colorForm">
-                                            
+
                                             <div>
                                                 <label for="location">Location</label>
                                                 <input class="form-control" id="location" name="location" type="text">
@@ -75,14 +75,14 @@
                                                 </div>
                                             </div>
 
-                                            
+
                                         </div>
                                     </div>
                                     <div class="tile-footer">
                                         <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
-                    
+
                                     </div>
                                 </div>
                                 </div>
@@ -161,7 +161,7 @@
 
 
     </main>
-   
+
 @endsection
 @section('script')
 <script>
@@ -199,7 +199,7 @@
     </script>
     <script>
 
-        
+
         var storedFiles2 = [];
 
         $(document).ready(function () {
@@ -229,7 +229,7 @@
                 if($(this).val() == 'Create') {
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    }  
+                    }
                     var file_data = $('#fimage').prop('files')[0];
                     var form_data = new FormData();
 
@@ -244,9 +244,9 @@
                     form_data.append("location", $("#location").val());
 
                     var title = $("#title").val();
-                    var slug = title.toLowerCase().replace(/[^\w-]+/g, '-'); 
+                    var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
 
-                    console.log(slug); 
+                    console.log(slug);
 
                     $.ajax({
                       url: url,
@@ -273,7 +273,7 @@
                 // alert('update btn work');
                 for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
-                }  
+                }
                   var file_data = $('#fimage').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
@@ -286,7 +286,7 @@
                   form_data.append("location", $("#location").val());
 
                   var title = $("#title").val();
-                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-'); 
+                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
                   form_data.append('_method', 'put');
 
                     // console.log(image);
@@ -360,10 +360,10 @@
             function populateForm(data){
                 for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    } 
+                    }
                 $("#title").val(data.title);
                 $("#description").val(data.description);
-                 CKEDITOR.replace( 'description' );
+                 CKEDITOR.replace( '' );
                 $("#location").val(data.location);
                 $("#category").val(data.category);
                 $("#codeid").val(data.id);
@@ -377,7 +377,7 @@
             }
         });
 
-        // gallery images 
+        // gallery images
         /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
         $(document).on('change','#media',function(){
             //$('.preview').html("");
@@ -414,5 +414,5 @@
             $("#property").addClass('active');
         });
     </script>
-   
+
 @endsection

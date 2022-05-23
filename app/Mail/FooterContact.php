@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class HomeContact extends Mailable
+class FooterContact extends Mailable
 {
     use Queueable, SerializesModels;
     public $array;
@@ -32,6 +32,6 @@ class HomeContact extends Mailable
         return $this->from('info@tevini.co.uk', 'Falcon.co.uk')
         ->subject('New mail form Falcon')
         ->replyTo($this->array['email'])
-        ->markdown('emails.home-contact');
+        ->markdown('emails.footer-contact');
     }
 }
