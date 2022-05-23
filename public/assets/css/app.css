@@ -266,24 +266,53 @@ body {
   }
 }
 
+.leftBlock {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .leftBlock {
+    display: block;
+  }
+}
+
+.arrowDown {
+  position: absolute;
+  bottom: 56px;
+  right: 15px;
+  pointer-events: none;
+}
+
 .banner {
   height: 90vh;
-  background: url(../images/website.jpg);
-  background-size: 100% 100%;
+  overflow: hidden;
   position: relative;
 }
 
-@media (max-width: 1600px) {
-  .banner {
-    background-size: cover;
-    background-position: top center;
+.banner .bannerPhoto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .banner .bannerPhoto {
+    left: -99%;
   }
 }
 
 @media (max-width: 600px) {
-  .banner {
-    background: url(../images/bg-mobile.png);
-    background-size: cover;
+  .banner .bannerPhoto {
+    left: -153%;
+  }
+}
+
+@media (max-width: 600px) {
+  .banner .bannerPhoto {
+    left: -178%;
   }
 }
 

@@ -165,24 +165,17 @@
         </li>
 
 
-        {{-- <li><a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Charts</span></a></li> --}}
-        <li class="treeview" style="display: none"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Code Master</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="{{url('admin/master')}}"><i class="icon fa fa-circle-o"></i> Master Code</a></li>
-            <li><a class="treeview-item" href="{{url('admin/softcode')}}"><i class="icon fa fa-circle-o"></i> Soft Code</a></li>
-          </ul>
-        </li>
+        
+
+        @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
+        <li><a class="app-menu__item" href="{{url('admin/pages')}}" id="pages"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Pages</span></a></li>
+        @endif
 
         @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
         <li><a class="app-menu__item" href="{{url('admin/sliders')}}" id="slider"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Slider Image</span></a></li>
         @endif
 
-        {{-- <li class="treeview" id="fsettings"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Frontend Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="{{url('admin/sliders')}}" id="slider"><i class="icon fa fa-circle-o"></i> Slider Image</a></li>
-            <li><a class="treeview-item" href="{{url('admin/seo-settings')}}" id="seo"><i class="icon fa fa-circle-o"></i> Seo Settings</a></li>
-          </ul>
-        </li> --}}
+        
         {{-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>

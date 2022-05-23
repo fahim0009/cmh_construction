@@ -78,18 +78,23 @@
           <div class="col-md-3">
               <h4 class="text-center bg-theme text-white p-2">Our Projects</h4>
               <div class="row projectLoader">
+
+
+                @foreach (\App\Models\Property::limit(5)->where('id','!=', $property->id)->get() as $data)
                   <div class="d-flex flex-column shadow-sm mb-3  py-2 more-project">
-                      <a href="#" class="text-decoration-none">
-                          <img src="./images/1.jpg" class="img-fluid mb-2">
-                          <h5> Taylor Close</h5>
+                      <a href="{{ route('property-details', $data->id)}}" class="text-decoration-none">
+                          <img src="{{ asset('images/property/'.$data->image) }}" class="img-fluid mb-2">
+                          <h5> {{ $data->title}}</h5>
                       </a>
                   </div>
-                  <div class="d-flex flex-column shadow-sm mb-3  py-2 more-project">
-                      <a href="#" class="text-decoration-none">
-                          <img src="./images/1.jpg" class="img-fluid mb-2">
-                          <h5> Taylor Close</h5>
-                      </a>
-                  </div> 
+
+                  @endforeach
+
+
+                  
+
+
+
               </div>
           </div>
 

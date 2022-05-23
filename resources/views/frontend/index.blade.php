@@ -2,22 +2,33 @@
 @section('content')
 
 
-<section class="banner" >
+
+
+
+    <section class="banner">
+        <img src="{{asset('frontend/slider/'.\App\Models\Slider::first()->photo)}}" class="bannerPhoto">
         <div class="container h-100">
             <div class="row p-0 h-100 m-0">
-                <div class="col-md-6 p-0 md-d-none"></div>
-                <div class="col-md-6 p-0 d-flex align-items-center justify-content-center">
-                    <div class="w-100 p-4 slideText">
-                        <h1 class="text-white sinking-bold display-4">{{\App\Models\Slider::first()->title}}</h1>
-                        <p class=" text-white sinking-light para">{{\App\Models\Slider::first()->caption}}</p>
+                <div class="col-md-6 p-0 leftBlock"></div>
+                <div class="col-md-6 p-0 position-relative  d-flex align-items-center justify-content-center">
+                    <div class="w-100 p-4 slideText ">
+                        <h1 class="text-white sinking-bold display-5">{{\App\Models\Slider::first()->title}}</h1>
+                        <p class=" text-white sinking-light para">{{\App\Models\Slider::first()->caption}}
+                        </p>
                     </div>
                 </div>
             </div>
             <a href="{{ route('getquote')}}" class="quote">
+                <img src="{{asset('assets/images/arrow.png')}}" class="arrowDown">
                 Get a quote
             </a>
         </div>
     </section>
+
+
+
+
+
 
     <section class="linkUp bg-secondary p-3">
         <div class="container">
@@ -63,7 +74,7 @@
                         <div class="project-box shadow-sm">
                             <a href="{{ route('property-details', $data->id)}}" style="text-decoration:none;">
                                 <div class="photo">
-                                    <div class="tag">Residential</div>
+                                    <div class="tag">{{ $data->category}}</div>
                                     <img src="{{ asset('images/property/'.$data->image) }}" class="img-fluid">
                                     <div class="bottomInfo">
                                         <div><span class="iconify" data-icon="clarity:map-marker-solid"></span> {{ $data->location}}</div>

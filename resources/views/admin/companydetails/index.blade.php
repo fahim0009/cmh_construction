@@ -133,7 +133,7 @@
                     </div>
                     <div class="form-group">
                         <label for="google_appstore_link">Google Map</label>
-                        <input type="text" id="google_appstore_link" value="@if (!empty($company->google_appstore_link)){{$company->google_appstore_link}}@endif" name="google_appstore_link" class="form-control">
+                        <textarea id="google_appstore_link"  name="google_appstore_link" class="form-control" cols="30" rows="10">@if (!empty($company->google_appstore_link)){{$company->google_appstore_link}}@endif</textarea>
                     </div>
                     {{-- <div class="form-group">
                       <label for="website">Website</label>

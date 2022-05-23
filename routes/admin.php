@@ -44,7 +44,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     //user registration end
     //code master 
     Route::resource('softcode','App\Http\Controllers\Admin\SoftcodeController');
-    Route::resource('master','App\Http\Controllers\Admin\MasterController');
+    Route::resource('pages','App\Http\Controllers\Admin\MasterController');
     //code master end
     //company details
     Route::resource('company-detail','App\Http\Controllers\Admin\CompanyDetailController');

@@ -36,7 +36,7 @@
                                     {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                     @csrf
 
-                                    <div>
+                                    {{-- <div>
                                         <label for="softcode" class="awesome">Pages</label>
                                         <select name="softcode" class="form-control" id="softcode" required>
                                             <option value=""  >Select Account Type</option>
@@ -44,7 +44,7 @@
                                             <option value="{{$item->name}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
                                     
 
                                     <div>
@@ -73,7 +73,7 @@
 
         </div>
 
-        <button id="newBtn" type="button" class="btn btn-info">Add New</button>
+        {{-- <button id="newBtn" type="button" class="btn btn-info">Add New</button> --}}
         <hr>
 
         <div id="contentContainer">
@@ -83,7 +83,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3> Service Details</h3>
+                            <h3> All Pages Details</h3>
                         </div>
                         <div class="card-body">
                                 <div class="container">
@@ -156,7 +156,7 @@
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
 
-            var url = "{{URL::to('/admin/master')}}";
+            var url = "{{URL::to('/admin/pages')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");

@@ -15,13 +15,13 @@
             <div class="row">
                 <div class="col-md-6 ">
                     <div class="box text-center">
-                        <h5><span class="iconify fs-2" data-icon="carbon:phone-voice-filled"></span> xxx xxx xxxx</h5>
+                        <h5><span class="iconify fs-2" data-icon="carbon:phone-voice-filled"></span> {{\App\Models\CompanyDetail::first()->phone1}}</h5>
                         <small>Get in touch with us</small>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                    <div class="box text-center">
-                    <h5> <span class="iconify fs-2" data-icon="ic:round-email"></span> info@youedomain.co.uk</h5>
+                    <h5> <span class="iconify fs-2" data-icon="ic:round-email"></span> {{\App\Models\CompanyDetail::first()->email1}}</h5>
                     <small>Send us an e-mail</small>
                    </div>
                 </div>
@@ -85,22 +85,23 @@
 
             </div>
         </div>
-        <div class="col-md-3">
+        
+         <div class="col-md-3">
             <div class="p-4" style="background-color: #ddd;">
              <h4 class="text-center bg-theme text-white p-2">Contact Address</h4>
              <div class="my-3">
-                <b>Your Company Ltd</b> <br>
+                <b>{{\App\Models\CompanyDetail::first()->company_name}}</b> <br>
                 <span class="sinking-light">
-                 162 your exact location <br>
-                 London <br>
+                    {{\App\Models\CompanyDetail::first()->address}}
                 </span>
 
                 <h5 class="mt-4 ">Opening Hours</h5>
-                <small class="sinking-light">  Monday – Friday: 9am – 5:00pm</small>
+                <small class="sinking-light">  {{\App\Models\CompanyDetail::first()->google_play_link}}</small>
 
              </div>
             </div>
          </div>
+
     </div>
 
    </div>
