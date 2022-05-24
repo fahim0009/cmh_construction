@@ -12,7 +12,12 @@
             <div class="row mb-5">
                 <div class="col-md-12" >
                     <div class="row p-4 m-0"style="background: #dddddd;">
-                        <div class="ermsg"></div>
+                        <div class="ermsg2"></div>
+                        <div id='loader' style='display:none;'>
+                            <img src="{{ asset('images/loader/small-loader.gif') }}" height="50px" id="loading-image" alt="Loading..." />
+                            &nbsp; &nbsp; &nbsp;
+                            <p style="margin-top: 10px">Sending your message ..... </p>
+                       </div>
                         <div class="col-md-6 my-2">
                             <div class="form-group">
                                 <label class="label mb-1" for="name">First Name</label>
@@ -49,7 +54,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="submit" id="submit" value="Send Message" class="btn bg-theme  text-white mt-3">
+                                <input type="submit" id="submit" onClick="this.disabled=true; this.value='Sending….';" value="Send Message" class="btn bg-theme  text-white mt-3">
                             </div>
                         </div>
                     </div>
@@ -103,7 +108,7 @@
             //  make mail start
             var url = "{{URL::to('/contact-submit')}}";
             $("#submit").click(function(){
-
+                $("#loader").show();
                     var fname= $("#fname").val();
                     var lname= $("#lname").val();
                     var email= $("#email").val();
@@ -115,12 +120,17 @@
                         data: {fname,lname,email,phone,message},
                         success: function (d) {
                             if (d.status == 303) {
-                                $(".ermsg").html(d.message);
+                                $(".ermsg2").html(d.message);
+                                $("#submit").prop('disabled', false);
+                                $("#submit").val('Send Message');
                             }else if(d.status == 300){
-                                $(".ermsg").html(d.message);
+                                $(".ermsg2").html(d.message);
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                             $("#loader").hide();
+                             },
                         error: function (d) {
                             console.log(d);
                         }

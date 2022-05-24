@@ -1,11 +1,5 @@
 @extends('frontend.layouts.master')
 @section('content')
-<style>
-   #loader {
-  display: flex;
-  align-items: center;
-}
-</style>
 <section class="breadcrumb mb-0">
     <div class="inner text-center px-4">
         <h2>Contact Your Builders Ltd</h2>
@@ -145,8 +139,6 @@
                 $("#getquote").click(function(){
 
                     $("#loader").show();
-                    $("#getquote").attr("disabled");
-                    $("#getquote").attr("style='cursor: no-drop;'");
 
                     var file_data = $('#qfiles').prop('files')[0];
                     var form_data = new FormData();
@@ -179,6 +171,8 @@
                             success: function (d) {
                                 if (d.status == 303) {
                                     $(".ermsg").html(d.message);
+                                    $("#getquote").prop('disabled', false);
+                                    $("#getquote").val('Send Message');
                                 }else if(d.status == 300){
                                     $(".ermsg").html(d.message);
                                     window.setTimeout(function(){location.reload()},2000)

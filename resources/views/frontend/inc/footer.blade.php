@@ -9,6 +9,11 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="ermsg"></div>
+                        <div id='loader' style='display:none;'>
+                            <img src="{{ asset('images/loader/small-loader.gif') }}" height="50px" id="loading-image" alt="Loading..." />
+                            &nbsp; &nbsp; &nbsp;
+                            <p style="margin-top: 10px">Sending your message ..... </p>
+                       </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -33,7 +38,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="submit"  id="fcontact"  value="Send Message" class="btn btn-danger mt-3">
+                                    <input type="submit"  id="fcontact" onClick="this.disabled=true; this.value='Sending….';"  value="Send Message" class="btn btn-danger mt-3">
 
                                 </div>
                             </div>

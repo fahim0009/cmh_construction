@@ -49,7 +49,7 @@ $(document).ready(function () {
             //  make mail start
             var url = "{{URL::to('/contact-footer')}}";
             $("#fcontact").click(function(){
-
+                $("#loader").show();
                     var name= $("#name").val();
                     var email= $("#femail").val();
                     var message= $("#fmessage").val();
@@ -60,11 +60,16 @@ $(document).ready(function () {
                         success: function (d) {
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);
+                                $("#fcontact").prop('disabled', false);
+                                $("#fcontact").val('Send Message');
                             }else if(d.status == 300){
                                 $(".ermsg").html(d.message);
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                             $("#loader").hide();
+                             },
                         error: function (d) {
                             console.log(d);
                         }

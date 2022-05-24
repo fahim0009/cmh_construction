@@ -821,3 +821,7 @@ body {
   border: 2px solid #9f9f9f;
 }
 /*# sourceMappingURL=app.css.map */
+#loader {
+    display: flex;
+    align-items: center;
+  }
