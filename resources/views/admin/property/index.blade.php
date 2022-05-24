@@ -193,10 +193,9 @@
     })
   </script>
 
-    <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    <script>
-    CKEDITOR.replace( 'description' );
-    </script>
+
+<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
     <script>
 
 
@@ -206,6 +205,11 @@
 
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
+                $("#description").addClass("ckeditor");
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                    }
+                 CKEDITOR.replace( 'description' );
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
@@ -227,6 +231,10 @@
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
+
+                    $('#createThisForm')[0].reset();
+                    $("#description").jqteVal('');
+
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
                     }
@@ -363,7 +371,7 @@
                     }
                 $("#title").val(data.title);
                 $("#description").val(data.description);
-                 CKEDITOR.replace( '' );
+                 CKEDITOR.replace( 'description' );
                 $("#location").val(data.location);
                 $("#category").val(data.category);
                 $("#codeid").val(data.id);
