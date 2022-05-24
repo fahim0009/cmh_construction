@@ -1,6 +1,11 @@
 @extends('frontend.layouts.master')
 @section('content')
-
+<style>
+   #loader {
+  display: flex;
+  align-items: center;
+}
+</style>
 <section class="breadcrumb mb-0">
     <div class="inner text-center px-4">
         <h2>Contact Your Builders Ltd</h2>
@@ -28,6 +33,11 @@
             </div>
             <br><br>
             <div class="ermsg"></div>
+            <div id='loader' style='display:none;'>
+                <img src="{{ asset('images/loader/small-loader.gif') }}" height="50px" id="loading-image" alt="Loading..." />
+                &nbsp; &nbsp; &nbsp;
+                <p style="margin-top: 10px">Sending your message ..... </p>
+           </div>
             <div class="row my-5">
                 <div class="col-md-12" >
                     <div class="row p-4 m-0"style="background: #dddddd;">
@@ -77,7 +87,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="submit" id="getquote" value="Send Message" class="btn bg-theme  text-white mt-3">
+                                <input type="submit" id="getquote" onClick="this.disabled=true; this.value='Sending….';" value="Send Message" class="btn bg-theme  text-white mt-3">
                             </div>
                         </div>
                     </div>
@@ -85,7 +95,7 @@
 
             </div>
         </div>
-        
+
          <div class="col-md-3">
             <div class="p-4" style="background-color: #ddd;">
              <h4 class="text-center bg-theme text-white p-2">Contact Address</h4>
@@ -134,6 +144,10 @@
                 var url = "{{URL::to('/contact-getquote')}}";
                 $("#getquote").click(function(){
 
+                    $("#loader").show();
+                    $("#getquote").attr("disabled");
+                    $("#getquote").attr("style='cursor: no-drop;'");
+
                     var file_data = $('#qfiles').prop('files')[0];
                     var form_data = new FormData();
 
@@ -170,6 +184,9 @@
                                     window.setTimeout(function(){location.reload()},2000)
                                 }
                             },
+                            complete:function(d){
+                             $("#loader").hide();
+                             },
                             error: function (d) {
                                 console.log(d);
                             }

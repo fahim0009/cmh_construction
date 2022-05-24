@@ -248,8 +248,6 @@ class ContactController extends Controller
 
         }
 
-
-        // new code start
         $contactmail = ContactMail::where('id', 1)->first()->name;
 
         $array['fname'] = $fname;
@@ -259,12 +257,8 @@ class ContactController extends Controller
         $array['plocated'] = $plocated;
         $array['message'] = $message;
 
-        // $array['file'] = public_path().'/plan/'.$charityid.'.pdf';
-        // $array['file_name'] = 'voucherReport#'.$charityid.'.pdf';
-
         Mail::to($contactmail)
         ->send(new GetQuote($array));
-
 
         $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Mail sent successfully.</b></div>";
         return response()->json(['status'=> 300,'message'=>$message]);

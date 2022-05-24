@@ -29,10 +29,22 @@ class GetQuote extends Mailable
      */
     public function build()
     {
-        return $this->from('info@tevini.co.uk', 'Falcon.co.uk')
-        ->subject('New mail form Falcon')
-        ->replyTo($this->array['email'])
-        ->attach($this->array['file'],['as'=>$this->array['file_name'], 'mime'=>'application/jpg/jpeg/mp4'])
-        ->markdown('emails.getquote');
+        if($this->array['file'] != null){
+
+            return $this->from('info@tevini.co.uk', 'Falcon.co.uk')
+            ->subject('New mail form Falcon')
+            ->replyTo($this->array['email'])
+            ->attach($this->array['file'],['as'=>$this->array['file_name'], 'mime'=>'application/jpg/jpeg/mp4'])
+            ->markdown('emails.getquote');
+
+        }else{
+
+            return $this->from('info@tevini.co.uk', 'Falcon.co.uk')
+            ->subject('New mail form Falcon')
+            ->replyTo($this->array['email'])
+            ->markdown('emails.getquote');
+
+        }
+
     }
 }
