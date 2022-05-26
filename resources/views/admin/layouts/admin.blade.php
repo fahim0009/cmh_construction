@@ -132,9 +132,9 @@
         <li><a class="app-menu__item" href="{{url('admin/register')}}" id="admin"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Admin</span></a></li>
         @endif
 
-        @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
-        <li><a class="app-menu__item" href="{{url('admin/role')}}" id="role"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Roles</span></a></li>
-        @endif
+        <!--@if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))-->
+        <!--<li><a class="app-menu__item" href="{{url('admin/role')}}" id="role"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Roles</span></a></li>-->
+        <!--@endif-->
 
         @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
         <li><a class="app-menu__item" href="{{url('admin/company-detail')}}" id="company-detail"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Company Details</span></a></li>
@@ -149,20 +149,20 @@
         <li class="{{ (request()->is('admin/admin-contact-mail*')) ? 'active' : '' }}"><a class="app-menu__item" href="{{ route('admin.contactmail') }}" id=""><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Contact Mail</span></a></li>
         @endif
         
-        <li class="treeview" id="alluser"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">User</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
+        <!--<li class="treeview" id="alluser"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">User</span><i class="treeview-indicator fa fa-angle-right"></i></a>-->
+        <!--  <ul class="treeview-menu">-->
             
 
-            @if(Auth::user()->is_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
-            <li><a class="treeview-item" href="{{url('admin/user-register')}}" id="user"><i class="icon fa fa-circle-o"></i> User</a></li>
-            @endif
+        <!--    @if(Auth::user()->is_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))-->
+        <!--    <li><a class="treeview-item" href="{{url('admin/user-register')}}" id="user"><i class="icon fa fa-circle-o"></i> User</a></li>-->
+        <!--    @endif-->
 
-            @if(Auth::user()->is_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
-            <li><a class="treeview-item" href="{{url('admin/staff')}}" id="staff"><i class="icon fa fa-circle-o"></i> Staff</a></li>
-            @endif
+        <!--    @if(Auth::user()->is_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))-->
+        <!--    <li><a class="treeview-item" href="{{url('admin/staff')}}" id="staff"><i class="icon fa fa-circle-o"></i> Staff</a></li>-->
+        <!--    @endif-->
 
-          </ul>
-        </li>
+        <!--  </ul>-->
+        <!--</li>-->
 
 
         

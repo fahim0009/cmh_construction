@@ -9,7 +9,7 @@
     <link name="favicon" type="image/x-icon" href="{{ asset(\App\Models\CompanyDetail::first()->fav_icon) }}" rel="shortcut icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CMH</title>
+    <title>Falcon</title>
     <link rel="icon" href="{{ asset('assets/images/favi.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">

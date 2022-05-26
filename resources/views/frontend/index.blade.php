@@ -50,15 +50,20 @@
             <div class="row pt-5 pb-3">
                 <div class="col-md-5">
                     <h1 class="sectitle pb-2 text-uppercase  sinking-bold fw-bold">
-                        <span> {{\App\Models\Master::where('softcode','=','homepage')->first()->hardcode}}</span> 
+                        <span> Our</span>
+                        <span> Latest </span>
+                        <span> Projects </span>
                     </h1>
                 </div>
                 <div class="col-md-4 pb-3 lh" style="position: relative;">
-                    <small class=" textAdjust sinking-light text-theme">
-                        {!!\App\Models\Master::where('softcode','=','homepage')->first()->details!!}
+                    <small class=" textAdjust sinking-light text-theme" style="line-height:17px">
+                        <p>
+                        {!!\App\Models\Master::where('softcode','=','homepage')->first()->details!!}</p>
                     </small>
                 </div>
             </div>
+            
+            <img src="{{asset('assets/images/bg.png')}}" class="bgPhoto">
         </div>
        
         </div>
