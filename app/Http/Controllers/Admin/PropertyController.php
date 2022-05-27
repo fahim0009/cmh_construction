@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use App\Models\Property;
 use App\Models\PropertyImage;
 use App\Http\Controllers\Controller;
@@ -19,10 +20,9 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
-            try{
                 $property = new Property();
                 $property->title= $request->title;
-                $property->category= $request->category;
+                $property->category_id= $request->category_id;
                 $property->description= $request->description;
                 $property->location= $request->location;
                 if ($request->fimage) {
@@ -36,28 +36,19 @@ class PropertyController extends Controller
                 }
                 
                 $property->created_by= Auth::user()->id;
-                $property->save();
     
-            if ($property->id) {
+            if ($property->save()) {
 
                 if ($request->fimage) {
                     $fpic = new PropertyImage();
-
-                    $request->validate([
-                        'fimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:204800',
-                    ]);
-                    $rand = mt_rand(100000, 999999);
-                    $imageName = time(). $rand .'.'.$request->fimage->extension();
-                    $request->fimage->move(public_path('images/property'), $imageName);
-
                     $fpic->image= $imageName;
                     $fpic->property_id = $property->id;
                     $fpic->created_by= Auth::user()->id;
                     $fpic->save();
                 }
 
-                 //image upload start
-                 if ($request->hasfile('media')) {
+                //image upload start
+                if ($request->hasfile('media')) {
                     // $media= [];
                     foreach ($request->file('media') as $image) {
                         $rand = mt_rand(100000, 999999);
@@ -75,16 +66,14 @@ class PropertyController extends Controller
                     }
                 }
 
-
-
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
                 return response()->json(['status'=> 300,'message'=>$message]);
-            }
-
-            }catch (\Exception $e){
-                return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+            }else {
+                return response()->json(['status'=> 303,'message'=>$request->category_id]);
 
             }
+
+            
 
     }
 
@@ -101,7 +90,7 @@ class PropertyController extends Controller
     {
         $property = Property::find($id);
         $property->title= $request->title;
-        $property->category= $request->category;
+        $property->category_id= $request->category_id;
         $property->description= $request->description;
         $property->location= $request->location;
         if ($request->fimage != 'null') {
@@ -196,6 +185,86 @@ class PropertyController extends Controller
     public function imageDelete($id)
     {
         if(PropertyImage::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Listing Deleted']);
+        }
+        else{
+            return response()->json(['success'=>false,'message'=>'Update Failed']);
+        }
+    }
+
+
+    public function category()
+    {
+        $cats = Category::all();
+        return view('admin.property.category',compact('cats'));
+    }
+
+    public function categorystore(Request $request)
+    {
+            try{
+                $cat = new Category();
+                $cat->name= $request->name;
+                if ($request->image) {
+                    $request->validate([
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    ]);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$request->image->extension();
+                    $request->image->move(public_path('images/category'), $imageName);
+                    $cat->image= $imageName;
+                }
+                
+                $cat->created_by= Auth::user()->id;
+    
+            if ($cat->save()) {
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
+                return response()->json(['status'=> 300,'message'=>$message]);
+            }
+
+            }catch (\Exception $e){
+                return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+
+            }
+
+    }
+
+    public function categoryedit($id)
+    {
+        $where = [
+            'id'=>$id
+        ];
+        $info = Category::where($where)->get()->first();
+        return response()->json($info);
+    }
+
+    public function categoryupdate(Request $request, $id)
+    {
+        $cat = Category::find($id);
+        $cat->name = $request->name;
+        if ($request->image != 'null') {
+            $image_path = public_path('images/category').'/'.$cat->cat;
+            // unlink($image_path);
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images/category'), $imageName);
+            $cat->image= $imageName;
+        }
+    
+        if ($cat->save()) {
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function categorydelete($id)
+    {
+        if(Category::destroy($id)){
             return response()->json(['success'=>true,'message'=>'Listing Deleted']);
         }
         else{

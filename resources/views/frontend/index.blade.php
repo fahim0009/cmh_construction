@@ -56,7 +56,7 @@
                     </h1>
                 </div>
                 <div class="col-md-4 pb-3 lh" style="position: relative;">
-                    <small class=" textAdjust sinking-light text-theme" style="line-height:17px">
+                    <small class=" textAdjust sinking-light text-theme" style="line-height:17px !Important">
                         <p>
                         {!!\App\Models\Master::where('softcode','=','homepage')->first()->details!!}</p>
                     </small>
@@ -100,6 +100,7 @@
 
     </section>
 
+    @include('frontend.inc.contact')
 @endsection
 
 @section('script')

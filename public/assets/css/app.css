@@ -136,9 +136,24 @@ body {
 }
 
 .breadcrumb {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), color-stop(48%, rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../images/London-Panoramic-2-2.jpg");
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 48%, rgba(0, 0, 0, 0.2) 100%), url("../images/London-Panoramic-2-2.jpg");
   min-height: 200px;
+  background-attachment: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.breadcrumb.imageContent {
+  min-height: 230px;
   background-attachment: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -152,22 +167,20 @@ body {
   color: #fff;
 }
 
-.breadcrumb.contact {
-  min-height: 230px;
-  background-attachment: fixed;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: #fff;
-  background-size: contain;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), color-stop(48%, rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../images/contact.jpg");
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 48%, rgba(0, 0, 0, 0.2) 100%), url("../images/contact.jpg");
+.breadcrumb.imageContent .cover {
+  z-index: -1;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb.imageContent .cover {
+    left: unset;
+  }
 }
 
 .breadcrumb .inner h2 {
@@ -614,7 +627,7 @@ body {
 
 #footer {
   background: #404040;
-  padding: 0 0 30px 0;
+  padding: 0 0 0px 0;
   font-size: 14px;
 }
 
@@ -821,7 +834,3 @@ body {
   border: 2px solid #9f9f9f;
 }
 /*# sourceMappingURL=app.css.map */
-#loader {
-    display: flex;
-    align-items: center;
-  }

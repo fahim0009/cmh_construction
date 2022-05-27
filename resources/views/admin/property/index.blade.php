@@ -35,12 +35,11 @@
                                                 <input class="form-control" id="title" name="title" type="text">
                                             </div>
                                             <div>
-                                                <label for="sizenumber">Category</label>
-                                                <select class="form-control" name="category" id="category">
-                                                    <option value="Commercial">Commercial</option>
-                                                    <option value="Residential">Residential</option>
-                                                    <option value="New Build">New Build</option>
-                                                    <option value="Developing">Developing</option>
+                                                <label for="category_id">Category</label>
+                                                <select class="form-control" name="category_id" id="category_id">
+                                                    @foreach (\App\Models\Category::all() as $item)
+                                                    <option value="{{$item->id}}">{{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div>
@@ -60,12 +59,12 @@
                                             </div>
 
                                             <div>
-                                                <label for="fimage">Feature Image</label>
+                                                <label for="fimage">Feature Image <span>(*size 525*328px )</span></label>
                                                 <input class="form-control" id="fimage" name="fimage" type="file">
                                             </div>
 
                                             <div>
-                                                <label for="media">Image or Videos</label>
+                                                <label for="media">Image or Videos <span>(*size 835*467 )</span></label>
                                                 <input id="media" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png, video/mp4" name="media[]" type="file">
                                             </div>
 
@@ -130,7 +129,7 @@
                                             <tr>
                                               <td>{{$key + 1}}</td>
                                               <td>{{$data->title}}</td>
-                                              <td>{{$data->category}}</td>
+                                              <td>{{ \App\Models\Category::where('id','=', $data->category_id)->first()->name }}</td>
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
                                               <td>{{$data->location}}</td>
                                               <td>{!!$data->description!!}</td>
@@ -232,8 +231,6 @@
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
 
-                    $('#createThisForm')[0].reset();
-                    $("#description").jqteVal('');
 
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
@@ -246,15 +243,13 @@
                     }
 
                     form_data.append("title", $("#title").val());
-                    form_data.append("category", $("#category").val());
+                    form_data.append("category_id", $("#category_id").val());
                     form_data.append('fimage', file_data);
                     form_data.append("description", $("#description").val());
                     form_data.append("location", $("#location").val());
 
-                    var title = $("#title").val();
-                    var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
-
-                    console.log(slug);
+                    // var name= $("#category_id").val();
+                    // console.log(slug);
 
                     $.ajax({
                       url: url,
@@ -288,13 +283,11 @@
                   }
                   var form_data = new FormData();
                   form_data.append("title", $("#title").val());
-                  form_data.append("category", $("#category").val());
+                  form_data.append("category_id", $("#category_id").val());
                   form_data.append('fimage', file_data);
                   form_data.append("description", $("#description").val());
                   form_data.append("location", $("#location").val());
 
-                  var title = $("#title").val();
-                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
                   form_data.append('_method', 'put');
 
                     // console.log(image);
@@ -373,7 +366,7 @@
                 $("#description").val(data.description);
                  CKEDITOR.replace( 'description' );
                 $("#location").val(data.location);
-                $("#category").val(data.category);
+                $("#category_id").val(data.category_id);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
@@ -420,6 +413,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#property").addClass('active');
+            $("#property").addClass('is-expanded');
+            $("#addproperty").addClass('active');
         });
     </script>
 

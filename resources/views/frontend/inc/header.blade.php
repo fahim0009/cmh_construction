@@ -23,6 +23,9 @@
                 <li class="nav-item simple-link m-1">
                     <a href="{{ route('commercial')}}" class="nav-link rounded">Commercial</a>
                 </li>
+                <li class="nav-item simple-link m-1">
+                    <a href="{{ route('category')}}" class="nav-link rounded">Category</a>
+                </li>
                 
                 <li class="nav-item m-1 ">
                     <a class="nav-link rounded "

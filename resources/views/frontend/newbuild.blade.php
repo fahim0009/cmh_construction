@@ -1,10 +1,12 @@
 @extends('frontend.layouts.master')
 @section('content')
 
-<section class="breadcrumb contact mb-0">
+
+
+<section class="breadcrumb imageContent mb-0">
+    <img src="{{ asset('images/banner/'.\App\Models\Banner::where('name','=', 'newbuild')->first()->image) }}" style="width: 100%" class="cover">
     <div class="inner text-center px-4">
         <h2>New Build</h2>
-        <!-- <small><a href="" >Your Builders London</a>  /  Contact Your Builders London Ltd</small> -->
     </div>
 </section>
 
@@ -46,6 +48,7 @@
 
 
 
+@include('frontend.inc.contact')
 
 @endsection
 

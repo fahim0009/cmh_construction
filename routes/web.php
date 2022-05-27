@@ -74,6 +74,12 @@ Route::get('/newbuild', [PropertyController::class, 'newbuild'])->name('newbuild
 Route::get('/developing', [PropertyController::class, 'developing'])->name('developing');
 Route::get('/property-details/{id}', [PropertyController::class, 'propertyDetails'])->name('property-details');
 Route::get('/getquote', [FrontendController::class, 'getquote'])->name('getquote');
+
+
+Route::get('/category', [FrontendController::class, 'category'])->name('category');
+Route::get('/category/{id}', [FrontendController::class, 'categoryProperty'])->name('allcategory');
+
+
 Route::post('/contact-submit', [App\Http\Controllers\ContactController::class, 'visitorContact'])->name('contact.submit');
 Route::post('/contact-footer', [App\Http\Controllers\ContactController::class, 'footerContact'])->name('contact.footer');
 Route::post('/contact-getquote', [App\Http\Controllers\ContactController::class, 'getQuote'])->name('get.quote');

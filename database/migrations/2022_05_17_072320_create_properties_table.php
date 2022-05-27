@@ -16,7 +16,8 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('title',191)->nullable();
-            $table->string('category',191)->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('image',191)->nullable();
             $table->longText('description')->nullable();
             $table->longText('location')->nullable();

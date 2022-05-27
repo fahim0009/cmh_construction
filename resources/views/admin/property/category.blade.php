@@ -1,7 +1,5 @@
 @extends('admin.layouts.admin')
 
-
-
 @section('content')
     <main class="app-content">
         <div class="app-title">
@@ -16,66 +14,54 @@
         <div id="addThisFormContainer">
 
             <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3>New Master details</h3>
+                            <h3>New Category</h3>
+                            <div class="ermsg"></div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="ermsg">
+                                <div class="col-md-12">
+                                <div class="tile">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            {!! Form::open(['url' => 'admin/productid/create','id'=>'createThisForm']) !!}
+                                            {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
+                                            @csrf
+
+                                            
+                                            <div>
+                                                <label for="name">Category</label>
+                                                <input class="form-control" id="name" name="name" type="text">
+                                            </div>
+                                            
+                                            <div>
+                                                <label for="image">Image <span>(*size 1400*397px )</span></label>
+                                                <input id="image" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png" name="image" type="file">
+                                            </div>
+
+                                        </div>
+                    
+                                        
+                                    </div>
+                                    <div class="tile-footer">
+                                        <input type="button" id="addBtn" value="Create" class="btn btn-primary">
+                                        <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
+                                        {!! Form::close() !!}
+                    
+                                    </div>
                                 </div>
-                                <div class="container">
-
-                                    {!! Form::open(['url' => 'admin/slider/create','id'=>'createThisForm']) !!}
-                                    {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
-                                    @csrf
-                                    
-
-                                    <div>
-                                        <label for="image">Image <span>(*size 1920*1080 )</span></label>
-                                        <input class="form-control" id="image" name="image" type="file">
-                                    </div>
-
-                                    <div>
-                                        <label for="title">Title</label>
-                                        <input class="form-control" id="title" name="title" type="text">
-                                    </div>
-
-                                    <div>
-                                        <label for="caption">Caption</label>
-                                        <input class="form-control" id="caption" name="caption" type="text">
-                                    </div>
-
-                                    {{-- <div>
-                                        <label for="status" class="awesome">Status</label>
-                                        <select name="status" class="form-control" id="status">
-                                            <option value=""  >Select status</option>
-                                            <option value="1"  >Active</option>
-                                            <option value="0"  >Inactive</option>
-                                        </select>
-                                    </div> --}}
-
-
-                                    <hr>
-                                    <input type="button" id="addBtn" value="Create" class="btn btn-primary">
-                                    <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
-                                    {!! Form::close() !!}
-
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
                 </div>
             </div>
 
         </div>
-
-        {{-- <button id="newBtn" type="button" class="btn btn-info">Add New</button> --}}
+        <button id="newBtn" type="button" class="btn btn-info">Add New</button>
         <hr>
 
         <div id="contentContainer">
@@ -85,8 +71,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3> Slider Image</h3>
-                            <div class="ermsg"></div>
+                            <h3> Property Category</h3>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -97,30 +82,21 @@
                                         <thead>
                                         <tr>
                                           <th>ID</th>
-                                          <th>Photo</th>
-                                          <th>Title</th>
-                                          <th>Caption</th>
-                                          <th>Status</th>
+                                          <th>Category </th>
+                                          <th>Image</th>
                                           <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                              @foreach ($sliders as $data)
+                                              @foreach ($cats as $key => $data)
+                                              
                                             <tr>
-                                              <td>{{$data->id}}</td>
-                                              <td><img src="{{asset('frontend/slider/'.$data->photo)}}" height="50px" width="50px" alt=""></td>
-                                              <td>{{$data->title}}</td>
-                                              <td>{{$data->caption}}</td>
-                                              <td>
-                                                <div class="toggle-flip">
-                                                    <label>
-                                                        <input type="checkbox" class="toggle-class" data-id="{{$data->id}}" {{ $data->status ? 'checked' : '' }}><span class="flip-indecator" data-toggle-on="Active" data-toggle-off="Inactive"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
+                                              <td>{{$key + 1}}</td>
+                                              <td>{{$data->name}}</td>
+                                              <td><img src="{{asset('images/category/'.$data->image)}}" height="80px" width="80px" alt=""></td>
+                                              
                                               <td>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                                                {{-- <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a> --}}
                                               </td>
                                             </tr>
                                             @endforeach
@@ -140,48 +116,56 @@
    
 @endsection
 @section('script')
-   
-     <script>
-        $(function() {
-          $('.toggle-class').change(function() {
-            var url = "{{URL::to('/admin/activeslider')}}";
-              var status = $(this).prop('checked') == true ? 1 : 0;
-              var id = $(this).data('id');
-               console.log(status);
-              $.ajax({
-                  type: "GET",
-                  dataType: "json",
-                  url: url,
-                  data: {'status': status, 'id': id},
-                  success: function(d){
-                    // console.log(data.success)
-                    if (d.status == 303) {
-                                    $(".ermsg").html(d.message);
-                                }else if(d.status == 300){
-                                    $(".ermsg").html(d.message);
-                                    // window.setTimeout(function(){location.reload()},2000)
-                                }
-                            },
-                            error: function (d) {
-                                console.log(d);
+<script>
+    $(function() {
+      $('.toggle-class').change(function() {
+        var url = "{{URL::to('/admin/activeslider')}}";
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(status);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                                $(".ermsg").html(d.message);
+                            }else if(d.status == 300){
+                                $(".ermsg").html(d.message);
+                                // window.setTimeout(function(){location.reload()},2000)
                             }
-              });
-          })
-        })
-      </script>
+                        },
+                        error: function (d) {
+                            console.log(d);
+                        }
+          });
+      })
+    })
+  </script>
+
+    
     <script>
+
+        
+var storedFiles2 = [];
+
+
         $(document).ready(function () {
 
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
                 $("#newBtn").hide(100);
+                $("#backBtn").hide(100);
                 $("#addThisFormContainer").show(300);
 
             });
             $("#FormCloseBtn").click(function(){
                 $("#addThisFormContainer").hide(200);
                 $("#newBtn").show(100);
+                $("#backBtn").show(100);
                 clearform();
             });
 
@@ -190,14 +174,15 @@
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
 
-            var url = "{{URL::to('/admin/sliders')}}";
+            var url = "{{URL::to('/admin/category')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                     
+                    
                     var file_data = $('#image').prop('files')[0];
                     var form_data = new FormData();
+                    form_data.append("name", $("#name").val());
                     form_data.append('image', file_data);
 
                     $.ajax({
@@ -222,19 +207,17 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                
+                 
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
                   }
                   var form_data = new FormData();
+                  form_data.append("name", $("#name").val());
                   form_data.append('image', file_data);
-                    form_data.append("title", $("#title").val());
-                    form_data.append("caption", $("#caption").val());
                   form_data.append('_method', 'put');
 
-                    //console.log(image);
-                    // alert(name);
+                    // console.log(image);
                     $.ajax({
                         url:url+'/'+$("#codeid").val(),
                         type: "POST",
@@ -248,7 +231,7 @@
                                 $(".ermsg").html(d.message);
                                 pagetop();
                             }else if(d.status == 300){
-                                success("Update Successfully!!");
+                                success("Data Update Successfully!!");
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
@@ -261,11 +244,11 @@
             });
             //Edit
             $("#contentContainer").on('click','#EditBtn', function(){
-                // alert("btn work");
+                //alert("btn work");
                 codeid = $(this).attr('rid');
-                console.log(codeid);
+                //console.log($codeid);
                 info_url = url + '/'+codeid+'/edit';
-                console.log(info_url);
+                //console.log($info_url);
                 $.get(info_url,{},function(d){
                     populateForm(d);
                     pagetop();
@@ -278,11 +261,11 @@
                 if(!confirm('Sure?')) return;
                  masterid = $(this).attr('rid');
                  info_url = url + '/'+masterid;
-                //console.log(info_url);
+                console.log(info_url);
                 //alert(info_url);
                 $.ajax({
                     url:info_url,
-                    method: "DELETE",
+                    method: "GET",
                     type: "DELETE",
                     data:{
                     },
@@ -303,8 +286,7 @@
 
 
             function populateForm(data){
-                $("#title").val(data.title);
-                $("#caption").val(data.caption);
+                $("#name").val(data.name);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
@@ -315,12 +297,15 @@
                 $("#addBtn").val('Create');
             }
         });
+
+           
+        
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#fsettings").addClass('active');
-            $("#fsettings").addClass('is-expanded');
-            $("#slider").addClass('active');
+            $("#property").addClass('active');
+            $("#property").addClass('is-expanded');
+            $("#category").addClass('active');
         });
     </script>
    

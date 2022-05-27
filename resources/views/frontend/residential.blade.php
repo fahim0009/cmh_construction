@@ -1,10 +1,11 @@
 @extends('frontend.layouts.master')
 @section('content')
 
-<section class="breadcrumb contact mb-0">
+
+<section class="breadcrumb imageContent mb-0">
+    <img src="{{ asset('images/banner/'.\App\Models\Banner::where('name','=', 'residential')->first()->image) }}" style="width: 100%" class="cover">
     <div class="inner text-center px-4">
         <h2>Residential</h2>
-        <!-- <small><a href="" >Your Builders London</a>  /  Contact Your Builders London Ltd</small> -->
     </div>
 </section>
 
@@ -15,7 +16,7 @@
 
 
 
-            @foreach (\App\Models\Property::where('category','=', 'Residential')->limit(9)->get() as $data)
+            @foreach (\App\Models\Property::where('category_id','=', '1')->limit(9)->get() as $data)
                     <div class="feature col">
                         <div class="project-box shadow-sm">
                             <a href="{{ route('property-details', $data->id)}}" style="text-decoration:none;">
@@ -46,6 +47,7 @@
 
 
 
+@include('frontend.inc.contact')
 
 @endsection
 

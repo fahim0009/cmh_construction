@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
@@ -61,12 +62,20 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('roleupdate','App\Http\Controllers\RoleController@roleUpdate');
     Route::resource('staff','App\Http\Controllers\StaffController');
 
+
     // property 
     Route::get('/property', [PropertyController::class, 'index'])->name('admin.property');
     Route::post('/property', [PropertyController::class, 'store']);
     Route::get('/property/{id}/edit', [PropertyController::class, 'edit']);
     Route::put('/property/{id}', [PropertyController::class, 'update']);
     Route::get('/property/{id}', [PropertyController::class, 'delete']);
+    
+    // category 
+    Route::get('/category', [PropertyController::class, 'category'])->name('admin.category');
+    Route::post('/category', [PropertyController::class, 'categorystore']);
+    Route::get('/category/{id}/edit', [PropertyController::class, 'categoryedit']);
+    Route::put('/category/{id}', [PropertyController::class, 'categoryupdate']);
+    Route::get('/category/{id}', [PropertyController::class, 'categorydelete']);
 
     Route::get('/property-image/{id}', [PropertyController::class, 'image'])->name('propertyimage');
     Route::post('/property-image', [PropertyController::class, 'imageStore']);
@@ -78,6 +87,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/admin-contact-mail', [ContactController::class, 'contactMail'])->name('admin.contactmail');
     Route::post('/admin-contact-mail/{id}', [ContactController::class, 'mailUpdate'])->name('contactmail.update');
     Route::get('/admin-contact-mail/edit/{id}', [ContactController::class, 'ContactmailEdit'])->name('contactmail.edit');
+
+    // banner 
+    Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner');
+    Route::post('/banner', [BannerController::class, 'store']);
+    Route::get('/banner/{id}/edit', [BannerController::class, 'edit']);
+    Route::put('/banner/{id}', [BannerController::class, 'update']);
+    Route::get('/banner/{id}', [BannerController::class, 'delete']);
     
 
 });
