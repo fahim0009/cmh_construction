@@ -12,12 +12,12 @@
 
 <section class="border-top  py-0 projects">
     <div class="container px-4 mt-3">
-        
+
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
 
 
-            @foreach (\App\Models\Property::where('category','=', 'Developing')->limit(9)->get() as $data)
+            @foreach (\App\Models\Property::where('category_id','=', '5')->limit(9)->get() as $data)
                     <div class="feature col">
                         <div class="project-box shadow-sm">
                             <a href="{{ route('property-details', $data->id)}}" style="text-decoration:none;">
@@ -39,7 +39,7 @@
 
 
 
-            
+
         </div>
     </div>
 
