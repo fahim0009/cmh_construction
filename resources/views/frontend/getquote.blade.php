@@ -27,9 +27,7 @@
                    </div>
                 </div>
             </div>
-            <div class="ermsg">
-                
-            </div>
+            <div class="ermsg"></div>
             <div id='loader' style='display:none;'>
                 <br><br>
                 <img src="{{ asset('images/loader/small-loader.gif') }}" height="50px" id="loading-image" alt="Loading..." />

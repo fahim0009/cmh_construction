@@ -13,13 +13,31 @@ class PropertyController extends Controller
 {
     public function index()
     {
-        // $softcode= Softcode::all('name');
-        $properties = Property::all();
+        $properties = Property::orderBy('id','DESC')->get();
         return view('admin.property.index',compact('properties'));
     }
 
     public function store(Request $request)
     {
+        if(empty($request->title)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Fill title field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
+        if(empty($request->description)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Fill description field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
+        if(empty($request->location)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Fill location field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
+        if(!$request->hasFile('fimage')){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please select  feature image.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
                 $property = new Property();
                 $property->title= $request->title;
                 $property->category_id= $request->category_id;

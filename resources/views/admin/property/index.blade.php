@@ -11,8 +11,13 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
-        <div id="addThisFormContainer">
+    <!-- Image loader -->
+        <div id='loading' style='display:none ;'>
+            <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+       </div>
+     <!-- Image loader -->
 
+        <div id="addThisFormContainer">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -132,7 +137,8 @@
                                               <td>{{ \App\Models\Category::where('id','=', $data->category_id)->first()->name }}</td>
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
                                               <td>{{$data->location}}</td>
-                                              <td>{!!$data->description!!}</td>
+                                              <td>{!! Str::limit($data->description, 100) !!}</td>
+                                              {{-- <td>{!!$data->description!!}</td> --}}
                                               <td>
                                                 <div class="toggle-flip">
                                                     <label>
@@ -231,7 +237,7 @@
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
 
-
+                    $("#loading").show();
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
                     }
@@ -265,15 +271,19 @@
                                 window.setTimeout(function(){location.reload()},2000)
                           }
                       },
+                      complete:function(d){
+                        $("#loading").hide();
+                    },
                       error: function (d) {
                           console.log(d);
                       }
                   });
                 }
                 //create  end
+
                 //Update
                 if($(this).val() == 'Update'){
-                // alert('update btn work');
+                    $("#loading").show();
                 for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
                 }
@@ -308,6 +318,9 @@
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                        $("#loading").hide();
+                    },
                         error:function(d){
                             console.log(d);
                         }
@@ -332,6 +345,7 @@
             //Delete
             $("#contentContainer").on('click','#deleteBtn', function(){
                 if(!confirm('Sure?')) return;
+                $("#loading").show();
                  masterid = $(this).attr('rid');
                  info_url = url + '/'+masterid;
                 console.log(info_url);
@@ -347,6 +361,9 @@
                             alert(d.message);
                             location.reload();
                         }
+                    },
+                    complete:function(d){
+                        $("#loading").hide();
                     },
                     error:function(d){
                         console.log(d);
@@ -417,5 +434,4 @@
             $("#addproperty").addClass('active');
         });
     </script>
-
 @endsection
