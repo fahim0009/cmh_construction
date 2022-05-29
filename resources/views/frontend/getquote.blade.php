@@ -16,20 +16,20 @@
             <div class="row">
                 <div class="col-md-6 ">
                     <div class="box text-center">
-                        <h5><span class="iconify fs-2" data-icon="carbon:phone-voice-filled"></span> {{\App\Models\CompanyDetail::first()->phone1}}</h5>
+                        <h6><span class="iconify fs-2" data-icon="carbon:phone-voice-filled"></span> {{\App\Models\CompanyDetail::first()->phone1}}</h6>
                         <small>Get in touch with us</small>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                    <div class="box text-center">
-                    <h5> <span class="iconify fs-2" data-icon="ic:round-email"></span> {{\App\Models\CompanyDetail::first()->email1}}</h5>
+                    <h6> <span class="iconify fs-2" data-icon="ic:round-email"></span> {{\App\Models\CompanyDetail::first()->email1}}</h6>
                     <small>Send us an e-mail</small>
                    </div>
                 </div>
             </div>
-            <br><br>
             <div class="ermsg"></div>
             <div id='loader' style='display:none;'>
+                <br><br>
                 <img src="{{ asset('images/loader/small-loader.gif') }}" height="50px" id="loading-image" alt="Loading..." />
                 &nbsp; &nbsp; &nbsp;
                 <p style="margin-top: 10px">Sending your message ..... </p>
