@@ -13,8 +13,12 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
+    <!-- Image loader -->
+    <div id='loading' style='display:none ;'>
+        <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+   </div>
+    <!-- Image loader -->
         <div id="addThisFormContainer">
-
             <div class="row">
                 <div class="col-md-3">
                 </div>
@@ -32,7 +36,7 @@
                                     {!! Form::open(['url' => 'admin/slider/create','id'=>'createThisForm']) !!}
                                     {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                     @csrf
-                                    
+
 
                                     <div>
                                         <label for="image">Image <span>(*size 1920*1080 )</span></label>
@@ -91,8 +95,6 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="container">
-
-
                                     <table class="table table-bordered table-hover" id="example">
                                         <thead>
                                         <tr>
@@ -132,15 +134,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </main>
-   
 @endsection
 @section('script')
-   
      <script>
         $(function() {
           $('.toggle-class').change(function() {
@@ -195,7 +192,7 @@
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                     
+
                     var file_data = $('#image').prop('files')[0];
                     var form_data = new FormData();
                     form_data.append('image', file_data);
@@ -222,7 +219,7 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                
+                    $("#loading").show();
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
@@ -252,6 +249,9 @@
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                        $("#loading").hide();
+                    },
                         error:function(d){
                             console.log(d);
                         }
@@ -323,5 +323,5 @@
             $("#slider").addClass('active');
         });
     </script>
-   
+
 @endsection

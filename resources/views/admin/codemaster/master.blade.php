@@ -16,8 +16,12 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
+     <!-- Image loader -->
+     <div id='loading' style='display:none ;'>
+        <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+   </div>
+    <!-- Image loader -->
         <div id="addThisFormContainer">
-
             <div class="row">
                 <div class="col-md-3">
                 </div>
@@ -45,7 +49,7 @@
                                             @endforeach
                                         </select>
                                     </div> --}}
-                                    
+
 
                                     <div>
                                         <label for="title">Title</label>
@@ -105,7 +109,7 @@
                                               <td>{{$data->id}}</td>
                                               <td>{{$data->softcode}}</td>
                                               <td>{{$data->hardcode}}</td>
-                                              <td>{!!$data->details!!}</td>
+                                              <td>{!! Str::limit($data->details, 100) !!}</td>
                                               <td>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                               </td>
@@ -123,11 +127,11 @@
 
 
     </main>
-   
+
 @endsection
 @section('script')
     <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    
+
     <script>
         $(document).ready(function () {
 
@@ -137,7 +141,7 @@
                 $("#details").addClass("ckeditor");
                 for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    } 
+                    }
                  CKEDITOR.replace( 'details' );
                 clearform();
                 $("#newBtn").hide(100);
@@ -163,7 +167,7 @@
                 if($(this).val() == 'Create') {
                     for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    }  
+                    }
                     var form_data = new FormData();
                     form_data.append("softcode", $("#softcode").val());
                     form_data.append("title", $("#title").val());
@@ -191,11 +195,11 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                // alert('update btn work');
-                for ( instance in CKEDITOR.instances ) {
+                    $("#loading").show();
+                    for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
-                }  
-                  
+                }
+
                   var form_data = new FormData();
                   form_data.append("title", $("#title").val());
                   form_data.append("details", $("#details").val());
@@ -219,6 +223,9 @@
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                        $("#loading").hide();
+                    },
                         error:function(d){
                             console.log(d);
                         }
@@ -272,7 +279,7 @@
             function populateForm(data){
                 for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    } 
+                    }
                 $("#title").val(data.hardcode);
                 $("#details").val(data.details);
 
@@ -294,5 +301,5 @@
             $("#pages").addClass('active');
         });
     </script>
-   
+
 @endsection

@@ -35,19 +35,9 @@
 
                     </div>
                 @endforeach
-
-
-
-
-
         </div>
     </div>
-
 </section>
-
-
-
-
 @include('frontend.inc.contact')
 
 @endsection

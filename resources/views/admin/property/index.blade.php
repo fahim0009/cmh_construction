@@ -138,7 +138,6 @@
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
                                               <td>{{$data->location}}</td>
                                               <td>{!! Str::limit($data->description, 100) !!}</td>
-                                              {{-- <td>{!!$data->description!!}</td> --}}
                                               <td>
                                                 <div class="toggle-flip">
                                                     <label>

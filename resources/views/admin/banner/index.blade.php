@@ -11,8 +11,12 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
+     <!-- Image loader -->
+     <div id='loading' style='display:none ;'>
+        <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+   </div>
+    <!-- Image loader -->
         <div id="addThisFormContainer">
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -29,14 +33,12 @@
                                             {!! Form::open(['url' => 'admin/productid/create','id'=>'createThisForm']) !!}
                                             {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                             @csrf
-
-                                            
                                             <div>
                                                 <label for="name">Pages</label>
-                                                <select class="form-control" name="name" id="name" readonly>
+                                                <select class="form-control" name="name" id="name" disabled>
                                                     <option value="">Please Select</option>
                                                     <option value="about">About</option>
-                                                    <option value="category">Category</option> 
+                                                    <option value="category">Category</option>
                                                     <option value="privacy">Privacy</option>
                                                     <option value="terms">Terms</option>
                                                     <option value="contact">Contact</option>
@@ -47,21 +49,21 @@
                                                     <option value="newbuild">New Build</option>
                                                 </select>
                                             </div>
-                                            
+
                                             <div>
                                                 <label for="image">Image <span>(*size 1400*397px )</span></label>
                                                 <input id="image" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png" name="image" type="file">
                                             </div>
 
                                         </div>
-                    
-                                        
+
+
                                     </div>
                                     <div class="tile-footer">
                                         <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
-                    
+
                                     </div>
                                 </div>
                                 </div>
@@ -101,12 +103,12 @@
                                         </thead>
                                         <tbody>
                                               @foreach ($banners as $key => $data)
-                                              
+
                                             <tr>
                                               <td>{{$key + 1}}</td>
                                               <td>{{$data->name}}</td>
                                               <td><img src="{{asset('images/banner/'.$data->image)}}" height="100px" width="350px" alt=""></td>
-                                              
+
                                               <td>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                               </td>
@@ -125,7 +127,7 @@
 
 
     </main>
-   
+
 @endsection
 @section('script')
 <script>
@@ -157,10 +159,10 @@
     })
   </script>
 
-    
+
     <script>
 
-        
+
 var storedFiles2 = [];
 
 
@@ -191,7 +193,7 @@ var storedFiles2 = [];
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    
+
                     var file_data = $('#image').prop('files')[0];
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
@@ -219,7 +221,7 @@ var storedFiles2 = [];
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                 
+                    $("#loading").show();
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
@@ -247,6 +249,9 @@ var storedFiles2 = [];
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                        $("#loading").hide();
+                    },
                         error:function(d){
                             console.log(d);
                         }
@@ -310,13 +315,13 @@ var storedFiles2 = [];
             }
         });
 
-           
-        
+
+
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#banner").addClass('active');
         });
     </script>
-   
+
 @endsection

@@ -11,8 +11,12 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
+    <!-- Image loader -->
+    <div id='loading' style='display:none ;'>
+        <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+   </div>
+ <!-- Image loader -->
         <div id="addThisFormContainer">
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -30,26 +34,24 @@
                                             {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                             @csrf
 
-                                            
                                             <div>
                                                 <label for="name">Category</label>
                                                 <input class="form-control" id="name" name="name" type="text">
                                             </div>
-                                            
+
                                             <div>
                                                 <label for="image">Image <span>(*size 1400*397px )</span></label>
                                                 <input id="image" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png" name="image" type="file">
                                             </div>
 
                                         </div>
-                    
-                                        
+
                                     </div>
                                     <div class="tile-footer">
                                         <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
-                    
+
                                     </div>
                                 </div>
                                 </div>
@@ -61,13 +63,11 @@
             </div>
 
         </div>
-        <button id="newBtn" type="button" class="btn btn-info">Add New</button>
+        {{-- <button id="newBtn" type="button" class="btn btn-info">Add New</button> --}}
         <hr>
 
         <div id="contentContainer">
-
-
-            <div class="row">
+          <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -76,8 +76,6 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="container">
-
-
                                     <table class="table table-bordered table-hover" id="example">
                                         <thead>
                                         <tr>
@@ -89,12 +87,12 @@
                                         </thead>
                                         <tbody>
                                               @foreach ($cats as $key => $data)
-                                              
+
                                             <tr>
                                               <td>{{$key + 1}}</td>
                                               <td>{{$data->name}}</td>
                                               <td><img src="{{asset('images/category/'.$data->image)}}" height="80px" width="80px" alt=""></td>
-                                              
+
                                               <td>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                               </td>
@@ -108,12 +106,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </main>
-   
 @endsection
 @section('script')
 <script>
@@ -145,15 +139,12 @@
     })
   </script>
 
-    
+
     <script>
 
-        
+
 var storedFiles2 = [];
-
-
         $(document).ready(function () {
-
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
@@ -169,17 +160,15 @@ var storedFiles2 = [];
                 clearform();
             });
 
-
             //header for csrf-token is must in laravel
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-
             var url = "{{URL::to('/admin/category')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    
+
                     var file_data = $('#image').prop('files')[0];
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
@@ -207,7 +196,7 @@ var storedFiles2 = [];
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                 
+                    $("#loading").show();
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
@@ -235,6 +224,9 @@ var storedFiles2 = [];
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
+                        complete:function(d){
+                        $("#loading").hide();
+                    },
                         error:function(d){
                             console.log(d);
                         }
@@ -298,8 +290,8 @@ var storedFiles2 = [];
             }
         });
 
-           
-        
+
+
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -308,5 +300,5 @@ var storedFiles2 = [];
             $("#category").addClass('active');
         });
     </script>
-   
+
 @endsection
