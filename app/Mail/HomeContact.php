@@ -29,8 +29,8 @@ class HomeContact extends Mailable
      */
     public function build()
     {
-        return $this->from('info@tevini.co.uk', 'Falcon.co.uk')
-        ->subject('New mail form Falcon')
+        return $this->from('info@falcon.falconconstruct.co.uk', 'falconconstruct.co.uk')
+        ->subject('New mail form Falcon Construct')
         ->replyTo($this->array['email'])
         ->markdown('emails.home-contact');
     }
