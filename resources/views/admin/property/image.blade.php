@@ -30,33 +30,33 @@
                                             {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                             @csrf
 
-                                            
+
                                             <div>
                                                 <input type="hidden" name="property_id" id="property_id" value="{{$property_id}}">
-                                                
+
                                             </div>
-                                            
+
                                             <div>
-                                                <label for="media">Image or Videos</label>
+                                                <label for="media">Image or Videos (*size 835*467 )</label>
                                                 <input id="media" class="form-control" multiple="" accept="image/gif, image/jpeg, image/png, video/mp4" name="media[]" type="file">
                                             </div>
 
                                         </div>
-                    
+
                                         <div class="col-lg-6" id="colorForm">
                                             <div>
                                                 <div class="form-group">
                                                     <div class="preview2"></div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <div class="tile-footer">
                                         <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
-                    
+
                                     </div>
                                 </div>
                                 </div>
@@ -102,7 +102,7 @@
                                                  $allowed = array('gif', 'png', 'jpg', 'jpeg', 'gif', 'svg');
                                                 $filename = $data->image;
                                                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
-                                                
+
                                               @endphp
                                             <tr>
                                               <td>{{$key + 1}}</td>
@@ -119,12 +119,12 @@
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
                                               @endif
 
-                                              
-                                              
 
 
 
-                                              
+
+
+
                                               <td>
                                                 <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
@@ -143,7 +143,7 @@
 
 
     </main>
-   
+
 @endsection
 @section('script')
 <script>
@@ -175,10 +175,10 @@
     })
   </script>
 
-    
+
     <script>
 
-        
+
 var storedFiles2 = [];
 
 
@@ -210,7 +210,7 @@ var storedFiles2 = [];
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    
+
                     var form_data = new FormData();
                     for(var i=0, len=storedFiles2.length; i<len; i++) {
                         form_data.append('media[]', storedFiles2[i]);
@@ -245,7 +245,7 @@ var storedFiles2 = [];
                 // alert('update btn work');
                 for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
-                }  
+                }
                   var file_data = $('#image').prop('files')[0];
                   if(typeof file_data === 'undefined'){
                     file_data = 'null';
@@ -258,7 +258,7 @@ var storedFiles2 = [];
                   form_data.append("location", $("#location").val());
 
                   var title = $("#title").val();
-                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-'); 
+                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
                   form_data.append('_method', 'put');
 
                     // console.log(image);
@@ -332,7 +332,7 @@ var storedFiles2 = [];
             function populateForm(data){
                 for ( instance in CKEDITOR.instances ) {
                     CKEDITOR.instances[instance].updateElement();
-                    } 
+                    }
                 $("#title").val(data.title);
                 $("#description").val(data.description);
                  CKEDITOR.replace( 'description' );
@@ -349,7 +349,7 @@ var storedFiles2 = [];
             }
         });
 
-               // gallery images 
+               // gallery images
         /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
         $(document).on('change','#media',function(){
             //$('.preview').html("");
@@ -386,5 +386,5 @@ var storedFiles2 = [];
             $("#property").addClass('active');
         });
     </script>
-   
+
 @endsection
