@@ -29,13 +29,13 @@
                         <h3 class="text-uppercase">About FALCON</h3>
                         <p>{{\App\Models\CompanyDetail::first()->footer_link}}</p>
                         <div class="social-links mt-3">
-                            <a href="https://{{\App\Models\CompanyDetail::first()->twiter}}" class="twitter">
+                            <a href="{{\App\Models\CompanyDetail::first()->twiter}}" class="twitter">
                                 <span class="iconify" data-icon="bxl:twitter"></span>
                             </a>
-                            <a href="https://{{\App\Models\CompanyDetail::first()->facebook}}" class="facebook">
+                            <a href="{{\App\Models\CompanyDetail::first()->facebook}}" class="facebook">
                                 <span class="iconify" data-icon="bxl:facebook"></span>
                             </a>
-                            <a href="https://{{\App\Models\CompanyDetail::first()->instagram}}" class="instagram">
+                            <a href="{{\App\Models\CompanyDetail::first()->instagram}}" class="instagram">
                                 <span class="iconify" data-icon="bxl:instagram-alt"></span>
                             </a>
 
