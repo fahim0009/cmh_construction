@@ -250,7 +250,7 @@ body {
 }
 
 .siteHeader .navCustomRight .nav-item .nav-link:hover {
-  background-color: #e96b56 !important;
+  background-color: #003C4E !important;
   color: white !important;
 }
 
@@ -345,8 +345,19 @@ body {
 }
 
 .banner .quote:hover {
-  background-color: #e96b56 !important;
+  background-color: #003C4E !important;
   color: #fff;
+}
+
+.btn:hover {
+    background-color: #003C4E !important;
+    color: #fff;
+}
+
+.btn {
+    background-color: #003C4E !important;
+    border-color: #003C4E !important;
+    color: #fff;
 }
 
 .dropdown-item:hover {
@@ -834,3 +845,4 @@ body {
   border: 2px solid #9f9f9f;
 }
 /*# sourceMappingURL=app.css.map */
+

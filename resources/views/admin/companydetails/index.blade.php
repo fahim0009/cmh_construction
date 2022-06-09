@@ -10,7 +10,7 @@
             <div>
               <h1><i class="fa fa-edit"></i> Company Details</h1>
             </div>
-            
+
             <ul class="app-breadcrumb breadcrumb">
               <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
               <li class="breadcrumb-item">Forms</li>
@@ -36,20 +36,12 @@
                     </div>
                     <div class="form-group">
                       <label for="phone1">Phone</label>
-                      <input class="form-control" id="phone1" name="phone1" value="@if (!empty($company->phone1)){{$company->phone1}}@endif" type="number">
+                      <input class="form-control" id="phone1" name="phone1" value="@if (!empty($company->phone1)){{$company->phone1}}@endif" type="text">
                     </div>
-                    {{-- <div class="form-group">
-                      <label for="phone2">Phone 2</label>
-                      <input class="form-control" id="phone2" name="phone2" value="@if (!empty($company->phone2)){{$company->phone2}}@endif" type="number">
-                    </div> --}}
                     <div class="form-group">
                       <label for="email1">Email</label>
                       <input class="form-control" id="email1" name="email1" value="@if (!empty($company->email1)){{$company->email1}}@endif" type="email">
                     </div>
-                    {{-- <div class="form-group">
-                      <label for="email2">Email 2</label>
-                      <input class="form-control" id="email2" name="email2" value="@if (!empty($company->email2)){{$company->email2}}@endif" type="email">
-                    </div> --}}
 
                     <div class="form-group">
                       <label for="facebook">Facebook</label>

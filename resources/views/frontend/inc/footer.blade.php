@@ -16,13 +16,13 @@
                             <li><i class="bx bx-chevron-right"></i> <a href="{{ route('homepage')}}">Home</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="{{ route('about')}}">About us</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="{{ route('terms')}}">Terms & Conditions</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('privacy')}}">Privacy policy</a></li>
+                            {{-- <li><i class="bx bx-chevron-right"></i> <a href="{{ route('privacy')}}">Privacy policy</a></li> --}}
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-contact ">
                         <h4>Contact Us</h4>
-                        <p>Your location, goes here , <br>{{\App\Models\CompanyDetail::first()->address}} <br> <strong>Phone:</strong>
+                        <p>{!!\App\Models\CompanyDetail::first()->address!!} <br> <strong>Phone:</strong>
                             {{\App\Models\CompanyDetail::first()->phone1}} <br> <strong>Email:</strong> {{\App\Models\CompanyDetail::first()->email1}}<br> </p>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-info">

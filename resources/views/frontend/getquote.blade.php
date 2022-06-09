@@ -98,7 +98,7 @@
              <div class="my-3">
                 <b>{{\App\Models\CompanyDetail::first()->company_name}}</b> <br>
                 <span class="sinking-light">
-                    {{\App\Models\CompanyDetail::first()->address}}
+                    {!!\App\Models\CompanyDetail::first()->address!!}
                 </span>
 
                 <h5 class="mt-4 ">Opening Hours</h5>
