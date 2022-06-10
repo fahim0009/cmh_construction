@@ -31,7 +31,7 @@ class GetQuote extends Mailable
     {
         if($this->array['file'] != null){
 
-            return $this->from('info@falcon.falconconstruct.co.uk', 'falconconstruct.co.uk')
+            return $this->from('info@falcon.falconconstruct.co.uk', 'Falcon Construction')
             ->subject('New mail form Falcon Construct')
             ->replyTo($this->array['email'])
             ->attach($this->array['file'],['as'=>$this->array['file_name'], 'mime'=>'application/jpg/jpeg/mp4'])
@@ -39,7 +39,7 @@ class GetQuote extends Mailable
 
         }else{
 
-            return $this->from('info@falcon.falconconstruct.co.uk', 'falconconstruct.co.uk')
+            return $this->from('info@falcon.falconconstruct.co.uk', 'Falcon Construction')
             ->subject('New mail form Falcon Construct')
             ->replyTo($this->array['email'])
             ->markdown('emails.getquote');

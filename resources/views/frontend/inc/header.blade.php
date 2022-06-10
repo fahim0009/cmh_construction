@@ -9,7 +9,7 @@
         <button class="navbar-toggler border" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="iconify text-danger" data-icon="charm:menu-hamburger"></span>
+            <span class="iconify" data-icon="charm:menu-hamburger"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
 

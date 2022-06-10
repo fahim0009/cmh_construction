@@ -13,9 +13,9 @@ The body of your message.
 |Message  |{{$array['message']}}|
 @endcomponent
 
-@component('mail::button', ['url' => ''])
+{{-- @component('mail::button', ['url' => ''])
 Button Text
-@endcomponent
+@endcomponent --}}
 
 Thanks,<br>
 {{ config('app.name') }}
