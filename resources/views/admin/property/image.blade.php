@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                     <div class="tile-footer">
-                                        <input type="button" id="addBtn" value="Create" class="btn btn-primary">
+                                        <input type="button" id="addBtn" value="Add" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
 
@@ -91,15 +91,14 @@
                                         <tr>
                                           <th>ID</th>
                                           <th>Property Title</th>
-                                          <th>Image</th>
-                                          <th>Video</th>
-                                          <th>Action</th>
+                                          <th>Image/Video</th>
+z                                          <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                               @foreach ($image as $key => $data)
                                               @php
-                                                 $allowed = array('gif', 'png', 'jpg', 'jpeg', 'gif', 'svg');
+                                                 $allowed = array('gif', 'png', 'jpg','JPG', 'jpeg', 'gif', 'svg');
                                                 $filename = $data->image;
                                                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -119,12 +118,6 @@
                                               <td><img src="{{asset('images/property/'.$data->image)}}" height="80px" width="80px" alt=""></td>
                                               @endif
 
-
-
-
-
-
-
                                               <td>
                                                 <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
@@ -138,47 +131,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </main>
-
 @endsection
 @section('script')
+
 <script>
-    $(function() {
-      $('.toggle-class').change(function() {
-        var url = "{{URL::to('/admin/activeslider')}}";
-          var status = $(this).prop('checked') == true ? 1 : 0;
-          var id = $(this).data('id');
-           console.log(status);
-          $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: url,
-              data: {'status': status, 'id': id},
-              success: function(d){
-                // console.log(data.success)
-                if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                            }else if(d.status == 300){
-                                $(".ermsg").html(d.message);
-                                // window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error: function (d) {
-                            console.log(d);
-                        }
-          });
-      })
-    })
-  </script>
-
-
-    <script>
-
-
 var storedFiles2 = [];
 
 
@@ -209,7 +167,7 @@ var storedFiles2 = [];
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
-                if($(this).val() == 'Create') {
+                if($(this).val() == 'Add') {
 
                     var form_data = new FormData();
                     for(var i=0, len=storedFiles2.length; i<len; i++) {
@@ -240,116 +198,15 @@ var storedFiles2 = [];
                   });
                 }
                 //create  end
-                //Update
-                if($(this).val() == 'Update'){
-                // alert('update btn work');
-                for ( instance in CKEDITOR.instances ) {
-                CKEDITOR.instances[instance].updateElement();
-                }
-                  var file_data = $('#image').prop('files')[0];
-                  if(typeof file_data === 'undefined'){
-                    file_data = 'null';
-                  }
-                  var form_data = new FormData();
-                  form_data.append("title", $("#title").val());
-                  form_data.append("category", $("#category").val());
-                  form_data.append('image', file_data);
-                  form_data.append("description", $("#description").val());
-                  form_data.append("location", $("#location").val());
-
-                  var title = $("#title").val();
-                  var slug = title.toLowerCase().replace(/[^\w-]+/g, '-');
-                  form_data.append('_method', 'put');
-
-                    // console.log(image);
-                    $.ajax({
-                        url:url+'/'+$("#codeid").val(),
-                        type: "POST",
-                        dataType: 'json',
-                        contentType: false,
-                        processData: false,
-                        data:form_data,
-                        success: function(d){
-                            console.log(d);
-                            if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                                pagetop();
-                            }else if(d.status == 300){
-                                success("Data Update Successfully!!");
-                                window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error:function(d){
-                            console.log(d);
-                        }
-                    });
-                }
-                //Update
             });
-            //Edit
-            $("#contentContainer").on('click','#EditBtn', function(){
-                //alert("btn work");
-                codeid = $(this).attr('rid');
-                //console.log($codeid);
-                info_url = url + '/'+codeid+'/edit';
-                //console.log($info_url);
-                $.get(info_url,{},function(d){
-                    populateForm(d);
-                    pagetop();
-                });
-            });
-            //Edit  end
 
-            //Delete
-            $("#contentContainer").on('click','#deleteBtn', function(){
-                if(!confirm('Sure?')) return;
-                 masterid = $(this).attr('rid');
-                 info_url = dlturl + '/'+masterid;
-                console.log(info_url);
-                //alert(info_url);
-                $.ajax({
-                    url:info_url,
-                    method: "GET",
-                    type: "DELETE",
-                    data:{
-                    },
-                    success: function(d){
-                        if(d.success) {
-                            alert(d.message);
-                            location.reload();
-                        }
-                    },
-                    error:function(d){
-                        console.log(d);
-                    }
-                });
-            });
-            //Delete
-
-
-
-
-            function populateForm(data){
-                for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    }
-                $("#title").val(data.title);
-                $("#description").val(data.description);
-                 CKEDITOR.replace( 'description' );
-                $("#location").val(data.location);
-                $("#category").val(data.category);
-                $("#codeid").val(data.id);
-                $("#addBtn").val('Update');
-                $("#addThisFormContainer").show(300);
-                $("#newBtn").hide(100);
-            }
             function clearform(){
                 $('#createThisForm')[0].reset();
-                $("#addBtn").val('Create');
+                $("#addBtn").val('Add');
             }
         });
 
-               // gallery images
+         // gallery images
         /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
         $(document).on('change','#media',function(){
             //$('.preview').html("");

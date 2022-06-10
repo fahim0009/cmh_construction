@@ -153,6 +153,18 @@ class PropertyController extends Controller
 
     public function delete($id)
     {
+        $property_id = $id;
+        
+        // $feature_image =  Property::where('id',$id)->first()->image;
+        // $feature_path = public_path() . '/images/property/'.$feature_image;
+        // unlink($feature_path);
+
+        $images = PropertyImage::where('property_id','=', $id)->get();
+
+        foreach($images as $simage){
+        unlink(public_path() . '/images/property/'.$simage->image);
+        }
+
         if(Property::destroy($id)){
             return response()->json(['success'=>true,'message'=>'Listing Deleted']);
         }
@@ -164,7 +176,7 @@ class PropertyController extends Controller
     public function image($id)
     {
         $property_id = $id;
-        $image = PropertyImage::where('property_id','=', $id)->get();
+        $image = PropertyImage::where('property_id','=', $id)->orderBy('id','DESC')->get();
         return view('admin.property.image',compact('image','property_id'));
     }
 
@@ -202,7 +214,10 @@ class PropertyController extends Controller
 
     public function imageDelete($id)
     {
-        if(PropertyImage::destroy($id)){
+        $name =  PropertyImage::where('id',$id)->first()->image;
+        $path = public_path() . '/images/property/'.$name;
+        if( unlink($path)){
+            PropertyImage::destroy($id);
             return response()->json(['success'=>true,'message'=>'Listing Deleted']);
         }
         else{

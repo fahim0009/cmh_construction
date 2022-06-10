@@ -74,7 +74,7 @@
             <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
 
-                @foreach (\App\Models\Property::limit(9)->get() as $data)
+                @foreach (\App\Models\Property::limit(9)->orderBy('id','DESC')->get() as $data)
                     <div class="feature col">
                         <div class="project-box shadow-sm">
                             <a href="{{ route('property-details', $data->id)}}" style="text-decoration:none;">

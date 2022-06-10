@@ -18,5 +18,5 @@ Button Text
 @endcomponent --}}
 
 Thanks,<br>
-{{ config('app.name') }}
+Falcon Construction
 @endcomponent
