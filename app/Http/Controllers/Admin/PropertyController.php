@@ -52,9 +52,9 @@ class PropertyController extends Controller
                     $request->fimage->move(public_path('images/property'), $imageName);
                     $property->image= $imageName;
                 }
-                
+
                 $property->created_by= Auth::user()->id;
-    
+
             if ($property->save()) {
 
                 if ($request->fimage) {
@@ -91,7 +91,7 @@ class PropertyController extends Controller
 
             }
 
-            
+
 
     }
 
@@ -123,7 +123,7 @@ class PropertyController extends Controller
             $property->image= $imageName;
         }
         $property->save();
-    
+
         if ($property->id) {
 
                 //image upload start
@@ -154,7 +154,7 @@ class PropertyController extends Controller
     public function delete($id)
     {
         $property_id = $id;
-        
+
         // $feature_image =  Property::where('id',$id)->first()->image;
         // $feature_path = public_path() . '/images/property/'.$feature_image;
         // unlink($feature_path);
@@ -182,6 +182,12 @@ class PropertyController extends Controller
 
     public function imageStore(Request $request)
     {
+
+        if(!$request->hasFile('media')){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please select  image or video.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
             try{
                 //image upload start
                 if ($request->hasfile('media')) {
@@ -246,9 +252,9 @@ class PropertyController extends Controller
                     $request->image->move(public_path('images/category'), $imageName);
                     $cat->image= $imageName;
                 }
-                
+
                 $cat->created_by= Auth::user()->id;
-    
+
             if ($cat->save()) {
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
                 return response()->json(['status'=> 300,'message'=>$message]);
@@ -285,7 +291,7 @@ class PropertyController extends Controller
             $request->image->move(public_path('images/category'), $imageName);
             $cat->image= $imageName;
         }
-    
+
         if ($cat->save()) {
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

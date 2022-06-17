@@ -11,8 +11,12 @@
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ul>
         </div>
+     <!-- Image loader -->
+     <div id='loading' style='display:none ;'>
+        <img src="{{ asset('images/loader/small-loader.gif') }}" id="loading-image" alt="Loading..." />
+   </div>
+ <!-- Image loader -->
         <div id="addThisFormContainer">
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -92,7 +96,7 @@
                                           <th>ID</th>
                                           <th>Property Title</th>
                                           <th>Image/Video</th>
-z                                          <th>Action</th>
+                                          <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -167,14 +171,12 @@ var storedFiles2 = [];
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Add') {
-
+                    $("#loading").show();
                     var form_data = new FormData();
                     for(var i=0, len=storedFiles2.length; i<len; i++) {
                         form_data.append('media[]', storedFiles2[i]);
                     }
                     form_data.append("property_id", $("#property_id").val());
-
-
                     var name= $("#property_id").val();
                     console.log(name);
                     $.ajax({
@@ -191,6 +193,9 @@ var storedFiles2 = [];
                                 window.setTimeout(function(){location.reload()},2000)
                           }
                       },
+                      complete:function(d){
+                        $("#loading").hide();
+                    },
                       error: function (d) {
                           console.log(d);
                       }
@@ -199,7 +204,6 @@ var storedFiles2 = [];
                 //create  end
             });
 
-            var dlturl = "{{URL::to('/admin/property-image-delete')}}";
             //Delete
             $("#contentContainer").on('click','#deleteBtn', function(){
                 if(!confirm('Sure?')) return;
