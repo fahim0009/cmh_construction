@@ -141,7 +141,6 @@ var storedFiles2 = [];
 
 
         $(document).ready(function () {
-
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
@@ -199,6 +198,35 @@ var storedFiles2 = [];
                 }
                 //create  end
             });
+
+            var dlturl = "{{URL::to('/admin/property-image-delete')}}";
+            //Delete
+            $("#contentContainer").on('click','#deleteBtn', function(){
+                if(!confirm('Sure?')) return;
+                 masterid = $(this).attr('rid');
+                 info_url = dlturl + '/'+masterid;
+                console.log(info_url);
+                //alert(info_url);
+                $.ajax({
+                    url:info_url,
+                    method: "GET",
+                    type: "DELETE",
+                    data:{
+                    },
+                    success: function(d){
+                        if(d.success) {
+                            alert(d.message);
+                            location.reload();
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+            });
+            //Delete
+
+
 
             function clearform(){
                 $('#createThisForm')[0].reset();
